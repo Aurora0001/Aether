@@ -1,7 +1,7 @@
 import { CHANGE_CURRENT_CHANNEL, CREATE_NETWORK_TAB, FOLD_NETWORK_TAB,
          EXPAND_NETWORK_TAB, ADD_NETWORK, REMOVE_NETWORK
        } from '../actions/ui.js';
-import { NEW_PRIVMSG } from '../actions/client.js';
+import { CONNECTED, NEW_PRIVMSG, NICK_CHANGE } from '../actions/client.js';
 
 export function current_channel(state = '', action) {
   switch (action.type) {
@@ -73,6 +73,39 @@ export function networks(state = [], action) {
       return state.filter(item => {
         return `${item.host}:${item.port}` !== `${action.host}:${action.port}`;
       });
+    default:
+      return state;
+  }
+}
+
+export function highlightWords(state = {}, action) {
+  switch (action.type) {
+    case CONNECTED:
+      const newState = Object.assign({}, state);
+      newState[action.network_id] = [
+        {
+          word: action.client.nick,
+          nick: true
+        }
+      ];
+      return newState;
+    case NICK_CHANGE:
+      if (!action.self) {
+        return state;
+      }
+      const modifiedState = Object.assign({}, state);
+      const networkWords = modifiedState[action.network_id] || [];
+      if (networkWords.filter(item => item.word === action.newnick && item.nick).length === 0) {
+        modifiedState[action.network_id] = networkWords
+          .filter(item => item.word !== action.oldnick || !item.nick);
+        modifiedState[action.network_id].push({
+          word: action.newnick,
+          nick: true
+        });
+        return modifiedState;
+      } else {
+        return state;
+      }
     default:
       return state;
   }

@@ -45,8 +45,11 @@ const version = argv.version || argv.v;
 
 if (version) {
   DEFAULT_OPTS.version = version;
+  console.log("set");
   startPack();
 } else {
+
+  console.log("ready");
   // use the same version as the currently-installed electron-prebuilt
   exec('npm list electron-prebuilt --dev', (err, stdout) => {
     if (err) {
@@ -54,7 +57,7 @@ if (version) {
     } else {
       DEFAULT_OPTS.version = stdout.split('electron-prebuilt@')[1].replace(/\s/g, '');
     }
-
+    console.log("set");
     startPack();
   });
 }

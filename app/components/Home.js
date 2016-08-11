@@ -6,6 +6,12 @@ import styles from './Home.css';
 export default class Home extends Component {
   componentWillReceiveProps(next) {
       if (next.networks.length > 0) {
+        next.navigateApp();
+      }
+  }
+
+  componentWillMount() {
+      if (this.props.networks.length > 0) {
         this.props.navigateApp();
       }
   }

@@ -4,7 +4,6 @@ import styles from './ChannelTab.css';
 
 class ChannelTab extends Component {
   static propTypes = {
-    network_id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     callback: PropTypes.func.isRequired,
@@ -14,10 +13,10 @@ class ChannelTab extends Component {
   };
 
   render() {
-    const { network_id, name, type, callback, close_callback, counter,
+    const { name, type, callback, close_callback, counter,
             selected } = this.props;
     return (
-      <li className={`${selected?styles.selected:null} ${styles.channel}`}>
+      <li className={`${selected?styles.selected:null} ${styles[type]}`}>
         <a onClick={callback} className={styles.channel_name}>
           <span className={styles.icon} />
           {name}

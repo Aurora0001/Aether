@@ -17,11 +17,11 @@ li.channel .button:hover {
   cursor: pointer;
 }
 
-li.channel .button.no_close {
+li.special .button {
   display: none;
 }
 
-li.channel.selected {
+li.selected {
   background: rgba(33, 133, 208, 0.7);
 }
 
@@ -29,7 +29,7 @@ li.channel.selected a {
   color: #fff;
 }
 
-li.channel {
+li.channel, li.special {
   font-size: 0.875em;
   display: block;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -38,11 +38,11 @@ li.channel {
   height: 100%;
 }
 
-li.channel > a.channel_name {
+li.channel a.channel_name, li.special a.channel_name {
   padding-left: 2.5em;
 }
 
-li.channel a {
+li.channel a, li.special a {
   display: block;
   padding: 0.6rem 1rem;
   text-decoration: none;
@@ -51,7 +51,7 @@ li.channel a {
   height: 1.125rem;
 }
 
-li.channel a:hover {
+li a:hover {
   background-color: rgba(0, 0, 0, 0.05);
   cursor: pointer;
 }

@@ -11,12 +11,13 @@ class NetworkTab extends Component {
     channels: PropTypes.array.isRequired,
     show: PropTypes.bool.isRequired,
     fold: PropTypes.func.isRequired,
-    expand: PropTypes.func.isRequired
+    expand: PropTypes.func.isRequired,
+    joinChannel: PropTypes.func.isRequired
   };
 
   render() {
     const { host, port, channels, name, show, fold, expand } = this.props;
-    const network_id = `${host}:${port}`;
+    const networkId = `${host}:${port}`;
 
     return (
       <div className={styles.network}>
@@ -25,11 +26,11 @@ class NetworkTab extends Component {
         </span>
         {
           show ?
-            <a className={styles.network_icon} onClick={() => fold(network_id)}>
+            <a className={styles.network_icon} onClick={() => fold(networkId)}>
               <i className="material-icons md-18">keyboard_arrow_up</i>
             </a>
           :
-            <a className={styles.network_icon} onClick={() => expand(network_id)}>
+            <a className={styles.network_icon} onClick={() => expand(networkId)}>
               <i className="material-icons md-18">keyboard_arrow_down</i>
             </a>
         }
@@ -38,10 +39,25 @@ class NetworkTab extends Component {
             show && channels.map(item => {
               if (item) {
                 return (
-                  <ChannelTab key={item.name} selected={item.selected} counter={item.counter} name={item.name} type={item.type} network_id={network_id} callback={item.callback} close_callback={item.close_callback} />
+                  <ChannelTab
+                    key={item.name}
+                    {...item}
+                  />
                 );
               }
             })
+          }
+          {
+            show ?
+              <ChannelTab
+                selected={false}
+                counter={-1}
+                name="Join Channel"
+                type="special"
+                callback={() => 0}
+                close_callback={() => 0}
+              />
+            : null
           }
         </ul>
       </div>

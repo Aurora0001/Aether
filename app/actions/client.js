@@ -46,7 +46,7 @@ export const SERVER_ERROR = 'SERVER_ERROR';
 const DISPLAY_MODES = ['q', 'a', 'o', 'h', 'v'];
 
 export function connect(host, port, ssl, _nick, ident, real, defaultChannels) {
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch(connect_start());
     const client = new irc.Client(host, _nick, {
       userName: ident,
@@ -68,10 +68,19 @@ export function connect(host, port, ssl, _nick, ident, real, defaultChannels) {
     });
 
     client.addListener('message', (nick, to, text, message) => {
+      if (to === client.nick) {
+        to = nick;
+      }
+
       dispatch(new_privmsg(nick, to, text, networkId));
-      const notification = new Notification(`${nick} (${to}) said:`, {
-        body: text
-      });
+      const shouldNotify = getState().highlightWords[networkId]
+        .filter(item => text.indexOf(item.word) !== -1).length > 0;
+      if (shouldNotify) {
+        // TODO: refactor into an action?
+        const notification = new Notification(`${nick} (${to}) said:`, {
+          body: text
+        });
+      }
     });
 
     client.addListener('action', (nick, to, text, message) => {
@@ -88,7 +97,8 @@ export function connect(host, port, ssl, _nick, ident, real, defaultChannels) {
     });
 
     client.addListener('kick', (channel, nick, by, reason, message) => {
-      dispatch(kick_channel(channel, nick, by, reason, nick === client.nick, networkId));
+      dispatch(kick_channel(channel, nick, by, reason, nick === client.nick,
+                            networkId));
     });
 
     client.addListener('notice', (channel, to, text, message) => {
@@ -119,7 +129,7 @@ export function connect(host, port, ssl, _nick, ident, real, defaultChannels) {
 
     client.addListener('nick', (oldnick, newnick, channels, message) => {
       channels.forEach(channel => {
-        dispatch(nick_change(oldnick, newnick, channel, networkId));
+        dispatch(nick_change(oldnick, newnick, channel, newnick === client.nick, networkId));
       });
     });
 
@@ -212,12 +222,13 @@ function set_topic(channel, topic, nick, networkId) {
   };
 }
 
-function nick_change(oldnick, newnick, channel, networkId) {
+function nick_change(oldnick, newnick, channel, self, networkId) {
   return {
     type: NICK_CHANGE,
     channel,
     oldnick,
     newnick,
+    self,
     network_id: networkId
   };
 }

@@ -34,3 +34,7 @@ dist
 release
 main.js
 main.js.map
+
+# Prebuilt
+IRCClient-*
+dist/

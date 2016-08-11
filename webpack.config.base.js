@@ -36,10 +36,10 @@ export default {
     packageMains: ['webpack', 'browser', 'web', 'browserify', ['jam', 'main'], 'main']
   },
   plugins: [
-
   ],
   externals: [
     'node-icu-charset-detector',
-    'iconv'
+    'iconv',
+    'require-all'
   ]
 };

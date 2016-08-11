@@ -6,10 +6,11 @@ import { routerMiddleware, push } from 'react-router-redux';
 import createEngine from 'redux-storage-engine-localstorage';
 import filter from 'redux-storage-decorator-filter';
 import * as storage from 'redux-storage';
-import rootReducer from '../reducers';
 
-import * as clientActions from '../actions/client';
-import * as uiActions from '../actions/ui';
+import rootReducer from '../reducers';
+import * as clientActions from '../actions/client.js';
+import * as uiActions from '../actions/ui.js';
+import { pluginMiddleware } from './pluginMiddleware.js';
 
 const actionCreators = {
   ...clientActions,
@@ -34,7 +35,7 @@ const storeMiddleware = storage.createMiddleware(engine, [], [
 ]);
 
 const enhancer = compose(
-  applyMiddleware(thunk, router, logger, storeMiddleware),
+  applyMiddleware(thunk, router, logger, pluginMiddleware, storeMiddleware),
   window.devToolsExtension ?
     window.devToolsExtension({ actionCreators }) :
     noop => noop
