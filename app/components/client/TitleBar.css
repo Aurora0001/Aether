@@ -1,0 +1,40 @@
+.toolbar {
+  background-color: rgb(25,25,25);
+  clear: both;
+  width: 100%;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.8em;
+  height: 3.2375rem;
+}
+
+.tool_item {
+  line-height: 3rem;
+  box-sizing: border-box;
+  padding: 0 1rem;
+  height: 3rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  float: left;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.channel_name {
+  font-size: 1.5em;
+  font-weight: bold;
+  max-width: 20%;
+}
+
+.channel_topic {
+  color: rgba(255, 255, 255, 0.5);
+  float: none;
+}
+
+.channel_topic a {
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+}
+
+.channel_topic a:hover {
+  text-decoration: underline;
+}

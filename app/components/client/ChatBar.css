@@ -1,0 +1,47 @@
+.chat_bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  font-size: 0.8rem;
+}
+
+.chat_bar input {
+  width: calc(100% - 7rem);
+  margin: 0;
+  padding: 0.8rem;
+  border: 0;
+}
+
+.chat_bar input:focus {
+  border: 0;
+  outline: 0;
+}
+
+.chat_bar button {
+  margin: 0;
+  padding: 0.8rem;
+  width: 5.4rem;
+  border: 0;
+  float: right;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #fff;
+  background-color: #e74c3c;
+  cursor: pointer;
+}
+
+.chat_bar button:hover {
+  opacity: 0.9;
+}
+
+.chat_bar button:disabled {
+  background: rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.chat_bar button:disabled:hover {
+  opacity: 1;
+}

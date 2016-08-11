@@ -1,0 +1,9 @@
+.sidebar {
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+a.left {
+  float: left !important;
+  border-right: 1px solid rgba(0, 0, 0, 0.1) !important;
+  margin: -1rem 1.2rem 0rem -1rem !important;
+}

@@ -1,0 +1,26 @@
+.item {
+  font-size: 0.8em;
+  display: block;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.item_text {
+  display: block;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.8);
+  position: relative;
+  height: 1.125rem;
+  line-height: 1.125rem;
+}
+
+.item:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}

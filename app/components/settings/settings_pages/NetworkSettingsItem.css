@@ -1,0 +1,40 @@
+form.form_root input[type=submit], .danger {
+  background-color: #2185D0;
+  color: #fff;
+  border: 0;
+  border-radius: 0.2rem;
+  padding: 0.75rem 0.75rem 0.75rem 0.75rem;
+  margin-right: 1rem;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+button.danger {
+  background-color: #f4573f;
+}
+
+form.form_root input[type=submit]:hover, .danger:hover {
+  cursor: pointer;
+}
+
+.divider {
+  color: rgba(0, 0, 0, 0.8);
+  padding-bottom: 3px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.form_item {
+  padding-bottom: 0.5rem;
+}
+
+.form_item input[type=text], .form_item input[type=number] {
+  border-radius: 0.3rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+  width: 100%;
+}
+
+.form_item label {
+  font-size: 0.8rem;
+  font-weight: bold;
+}

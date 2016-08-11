@@ -1,0 +1,16 @@
+.container {
+  text-align: center;
+}
+
+.container h2 {
+  font-size: 5rem;
+}
+
+.container a {
+  font-size: 1.4rem;
+  background: rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.6);
+  padding: 0.5rem 0.5rem;
+  border-radius: 0.2rem;
+  text-decoration: none;
+}

@@ -1,0 +1,74 @@
+/* Channel Close Buttons */
+li.channel .button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  height: 1.125rem;
+  line-height: 1rem;
+  color: rgba(0, 0, 0, 0.4);
+  background-color: rgb(255, 255, 255, 0);
+}
+
+li.channel .button:hover {
+  border-left: 0;
+  color: rgb(255, 255, 255);
+  background-color: #e74c3c;
+  cursor: pointer;
+}
+
+li.channel .button.no_close {
+  display: none;
+}
+
+li.channel.selected {
+  background: rgba(33, 133, 208, 0.7);
+}
+
+li.channel.selected a {
+  color: #fff;
+}
+
+li.channel {
+  font-size: 0.875em;
+  display: block;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  position: relative;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+li.channel > a.channel_name {
+  padding-left: 2.5em;
+}
+
+li.channel a {
+  display: block;
+  padding: 0.6rem 1rem;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.8);
+  position: relative;
+  height: 1.125rem;
+}
+
+li.channel a:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+}
+
+.icon::after {
+  content: " ";
+  font-weight: 900;
+}
+
+.counter::before {
+  content: "[";
+}
+
+.counter::after {
+  content: "]";
+}
+
+.counter {
+  font-weight: bold;
+}

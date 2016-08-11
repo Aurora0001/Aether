@@ -1,0 +1,31 @@
+.panel_header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+.chat {
+  display: block;
+  padding: 1em;
+  width: auto;
+  height: calc(100vh - 7.9rem);
+  overflow: auto;
+  word-break: break-all;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: rgba(0,0,0,0.2);
+}
+
+
+.chat a {
+  word-break: break-all;
+}

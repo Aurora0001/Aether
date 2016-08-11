@@ -1,0 +1,43 @@
+ul.channel_list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+
+div.network {
+  font-size: 0.8em;
+  display: block;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+}
+
+span.network_text {
+  display: block;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.8);
+  position: relative;
+  height: 1.125rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+a.network_icon {
+  top: 0;
+  right: 0;
+  position: absolute;
+  bottom: 0;
+  height: 1.125rem;
+  line-height: 1rem;
+  display: block;
+  padding: 0.5rem 1rem;
+}
+
+a.network_icon:hover {
+  background-color: rgba(22, 93, 167, 0.75);
+  color: #eeeeee;
+  cursor: pointer;
+}

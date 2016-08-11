@@ -1,0 +1,54 @@
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.sidebar {
+  width: 13em;
+  overflow: auto;
+  height: 100%;
+  overflow: hidden;
+}
+
+.button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.side_panel {
+  height: 100%;
+  max-height: calc(100% - 3rem);
+  overflow: auto;
+}
+
+.panel_header {
+  font-size: 1.2em;
+  padding: 1rem 1rem 0.8rem 1rem;
+  display: block;
+  box-sizing: border-box;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.panel_header i {
+  float: left;
+  margin-right: 0.5rem;
+  margin-top: -0.1rem;
+}
+
+.panel_header .button {
+  float: right;
+  margin: -1rem -1rem -0.8rem 0;
+  display: block; color: rgba(0, 0, 0, 0.6);
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  height: 3.2rem;
+  width: calc(3.2rem - 1px);
+  text-align: center;
+  line-height: 4rem;
+}
+
+.panel_header .button i {
+  float: none;
+  margin: 0;
+}

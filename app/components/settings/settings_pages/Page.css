@@ -1,0 +1,14 @@
+.settings_body {
+  padding-left: 5rem;
+  padding-right: 5rem;
+  padding-top: 1rem;
+}
+
+.settings_body button.add {
+  background-color: #2185D0;
+  font-weight: bold;
+  padding: 0.5rem 0.5rem;
+  border: 0;
+  border-radius: 0.2rem;
+  color: #fff;
+}

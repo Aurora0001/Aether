@@ -1,0 +1,17 @@
+.count {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.count:before {
+  content: "(";
+}
+
+.count:after {
+  content: ")";
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
