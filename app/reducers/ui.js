@@ -1,7 +1,8 @@
 import { CHANGE_CURRENT_CHANNEL, CREATE_NETWORK_TAB, FOLD_NETWORK_TAB,
          EXPAND_NETWORK_TAB, ADD_NETWORK, REMOVE_NETWORK
        } from '../actions/ui.js';
-import { CONNECTED, NEW_PRIVMSG, NICK_CHANGE } from '../actions/client.js';
+import { CONNECTED, NEW_PRIVMSG, NEW_ACTION, NICK_CHANGE }
+      from '../actions/client.js';
 
 export function current_channel(state = '', action) {
   switch (action.type) {
@@ -31,6 +32,7 @@ export function network_states(state = {}, action) {
 export function channel_counter(state = {}, action) {
   switch (action.type) {
     case NEW_PRIVMSG:
+    case NEW_ACTION:
       const channelCounter = state[`${action.network_id}:${action.to}`] || 0;
       if (channelCounter === -1) {
         return state;

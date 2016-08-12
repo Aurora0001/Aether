@@ -1,5 +1,6 @@
 const fs = require('fs');
 class LoggerPlugin {
+  // TODO: use path NETWORK_NAME/#CHANNEL.log
   constructor(registerForAction) {
     registerForAction('NEW_PRIVMSG', this.onPrivmsg);
     registerForAction('NEW_ACTION', this.onPrivmsg);

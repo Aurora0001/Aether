@@ -2,6 +2,7 @@ import crypto from 'crypto';
 import { NEW_PRIVMSG, NEW_ACTION, JOIN_CHANNEL, PART_CHANNEL, KICK_CHANNEL,
          NEW_NOTICE, ADD_MODE, REMOVE_MODE, USER_QUIT, CONNECTED, RECEIVE_NAMES,
          NICK_CHANGE, SET_TOPIC, USER_KILLED, DISCONNECTED, SERVER_ERROR,
+         NEW_SELF_PRIVMSG
        } from '../actions/client';
 
 export function clients(state = {}, action) {
@@ -21,14 +22,10 @@ export function channels(state = {}, action) {
       if (!action.self) {
         return state;
       }
-      const new_obj = Object.assign({}, state);
-      new_obj[`${action.network_id}:${action.channel}`] = {
-        name: action.channel,
-        type: 'channel',
-        topic: null,
-        network_id: action.network_id
-      };
-      return new_obj;
+      return addChannel(state, action.channel, 'channel', action.network_id);
+    case NEW_SELF_PRIVMSG:
+      // Handles both JOIN_CHANNEL and NEW_SELF_PRIVMSG
+      return addChannel(state, action.nick, 'pm', action.network_id);
     case PART_CHANNEL:
     case KICK_CHANNEL:
       if (!action.self) {
@@ -49,6 +46,17 @@ export function channels(state = {}, action) {
     default:
       return state;
   }
+}
+
+function addChannel(state, channelName, type, networkId) {
+  const new_obj = Object.assign({}, state);
+  new_obj[`${networkId}:${channelName}`] = {
+    name: channelName,
+    type: type,
+    topic: null,
+    network_id: networkId
+  };
+  return new_obj;
 }
 
 export function feeds(state = {}, action) {

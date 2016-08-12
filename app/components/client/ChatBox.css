@@ -9,7 +9,6 @@
   width: auto;
   height: calc(100vh - 7.9rem);
   overflow: auto;
-  word-break: break-all;
 }
 
 ::-webkit-scrollbar {

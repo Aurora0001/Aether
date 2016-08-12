@@ -41,6 +41,7 @@ export const SEND_JOIN_CHANNEL = 'SEND_JOIN_CHANNEL';
 export const SEND_PART_CHANNEL = 'SEND_PART_CHANNEL';
 export const USER_KILLED = 'USER_KILLED';
 export const SERVER_ERROR = 'SERVER_ERROR';
+export const NEW_SELF_PRIVMSG = 'NEW_SELF_PRIVMSG';
 
 // If any of these modes are seen, we need to refresh the names list.
 const DISPLAY_MODES = ['q', 'a', 'o', 'h', 'v'];
@@ -83,7 +84,19 @@ export function connect(host, port, ssl, _nick, ident, real, defaultChannels) {
       }
     });
 
+    client.addListener('pm', (nick, text, message) => {
+      dispatch(newSelfPrivmsg(nick, text, networkId));
+      const notification = new Notification(`${nick} sent a PM:`, {
+        body: text
+      });
+    });
+
     client.addListener('action', (nick, to, text, message) => {
+      if (to === client.nick) {
+        to = nick;
+        dispatch(newSelfPrivmsg(nick, text, networkId));
+      }
+
       dispatch(new_action(nick, to, text, networkId));
     });
 
@@ -322,6 +335,15 @@ function new_privmsg(nick, to, text, networkId) {
     type: NEW_PRIVMSG,
     nick,
     to,
+    text: marked(text),
+    network_id: networkId
+  };
+}
+
+function newSelfPrivmsg(nick, text, networkId) {
+  return {
+    type: NEW_SELF_PRIVMSG,
+    nick,
     text: marked(text),
     network_id: networkId
   };

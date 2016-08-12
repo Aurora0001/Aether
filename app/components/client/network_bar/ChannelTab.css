@@ -1,5 +1,5 @@
 /* Channel Close Buttons */
-li.channel .button {
+li.channel .button, li.pm .button {
   position: absolute;
   top: 0;
   right: 0;
@@ -10,7 +10,7 @@ li.channel .button {
   background-color: rgb(255, 255, 255, 0);
 }
 
-li.channel .button:hover {
+li.channel .button:hover, li.pm .button:hover {
   border-left: 0;
   color: rgb(255, 255, 255);
   background-color: #e74c3c;
@@ -25,11 +25,11 @@ li.selected {
   background: rgba(33, 133, 208, 0.7);
 }
 
-li.channel.selected a {
+li.channel.selected a, li.pm.selected a {
   color: #fff;
 }
 
-li.channel, li.special {
+li.channel, li.special, li.pm {
   font-size: 0.875em;
   display: block;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -38,11 +38,11 @@ li.channel, li.special {
   height: 100%;
 }
 
-li.channel a.channel_name, li.special a.channel_name {
+ul li a.channel_name {
   padding-left: 2.5em;
 }
 
-li.channel a, li.special a {
+li.channel a, li.special a, li.pm a {
   display: block;
   padding: 0.6rem 1rem;
   text-decoration: none;

@@ -5,8 +5,10 @@ import { routerMiddleware } from 'react-router-redux';
 import createEngine from 'redux-storage-engine-localstorage';
 import * as storage from 'redux-storage';
 import filter from 'redux-storage-decorator-filter';
+
 import rootReducer from '../reducers';
 import * as uiActions from '../actions/ui.js';
+import { pluginMiddleware } from './pluginMiddleware.js';
 
 const router = routerMiddleware(hashHistory);
 
@@ -20,7 +22,7 @@ const storeMiddleware = storage.createMiddleware(engine, [], [
   uiActions.REMOVE_NETWORK
 ]);
 
-const enhancer = applyMiddleware(thunk, router, storeMiddleware);
+const enhancer = applyMiddleware(thunk, router, pluginMiddleware, storeMiddleware);
 
 export default function configureStore(initialState) {
   const store = createStore(rootReducer, initialState, enhancer);
