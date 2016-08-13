@@ -3,7 +3,8 @@ import styles from './ChatBar.css';
 
 class ChatBar extends Component {
   static PropTypes = {
-    callback: PropTypes.func.isRequired
+    callback: PropTypes.func.isRequired,
+    users: PropTypes.array.isRequired
   };
 
   constructor(props) {
@@ -20,7 +21,22 @@ class ChatBar extends Component {
   }
 
   keyPress = (event) => {
-    if (event.keyCode === 13) {
+    if (event.keyCode === 9) {
+      event.preventDefault();
+      let words = this.state.text.split(' ');
+      if (words.length >= 1) {
+        const lastWord = words[words.length - 1];
+        const suggestions = this.props.users
+          .filter(user => user.name.startsWith(lastWord));
+        if (suggestions[0]) {
+          words.pop();
+          words.push(suggestions[0].name);
+          this.setState({
+            text: words.join(' ')
+          });
+        }
+      }
+    } else if (event.keyCode === 13) {
       this.clickEvent();
     }
   }

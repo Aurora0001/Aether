@@ -29,12 +29,12 @@
   text-transform: uppercase;
   font-weight: bold;
   color: #fff;
-  background-color: #e74c3c;
+  background-color: rgba(33, 133, 208, 0.9);
   cursor: pointer;
 }
 
 .chat_bar button:hover {
-  opacity: 0.9;
+  opacity: 0.8;
 }
 
 .chat_bar button:disabled {

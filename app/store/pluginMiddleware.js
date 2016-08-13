@@ -4,7 +4,7 @@ import requireAll from 'require-all';
 import * as clientActions from '../actions/client.js';
 import * as uiActions from '../actions/ui.js';
 
-const PLUGIN_DIR = path.resolve('./app', 'plugins');
+const PLUGIN_DIR = path.resolve('.', 'plugins');
 
 const pluginHooks = {
 

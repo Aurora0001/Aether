@@ -104,6 +104,7 @@ class Client extends Component {
         </div>
         <div className={styles.main}>
           <ChatBox
+            users={users[current_channel] || []}
             messages={
               (feeds[current_channel] || []).map(x => {
                 return {

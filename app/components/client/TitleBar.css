@@ -4,7 +4,8 @@
   width: 100%;
   color: rgba(255, 255, 255, 0.8);
   font-size: 0.8em;
-  height: 3.2375rem;
+  height: 3.2rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .tool_item {
@@ -21,7 +22,6 @@
 
 .channel_name {
   font-size: 1.5em;
-  font-weight: bold;
   max-width: 20%;
 }
 

@@ -4,13 +4,14 @@ import ChatMessage from './ChatMessage.js';
 import ChatBar from './ChatBar.js';
 import styles from './ChatBox.css';
 
-// 512 KiB
-const MAX_FILE_SIZE = 524288;
+// 1MB
+const MAX_FILE_SIZE = 1024000;
 
 class ChatBox extends Component {
   static PropTypes = {
     channel: PropTypes.object.isRequired,
     messages: PropTypes.array.isRequred,
+    users: PropTypes.array.isRequred,
     callback: PropTypes.func.isRequired,
     dropCallback: PropTypes.func.isRequired
   };
@@ -60,7 +61,7 @@ class ChatBox extends Component {
 
   render() {
     const messages = this.props.messages || [];
-    const { channel, callback } = this.props;
+    const { channel, users, callback } = this.props;
     return (
       <div>
         <TitleBar topic={channel.topic} name={channel.name} />
@@ -85,7 +86,7 @@ class ChatBox extends Component {
             })
           }
         </div>
-        <ChatBar callback={callback} />
+        <ChatBar callback={callback} users={users}/>
       </div>
     );
   }

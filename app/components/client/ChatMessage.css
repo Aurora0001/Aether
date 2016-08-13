@@ -32,6 +32,7 @@
 
 .message .avatar {
   background: #EAB;
+  color: #000;
   border-radius: 0.2rem;
   height: 36px;
   font-size: 1.8rem;

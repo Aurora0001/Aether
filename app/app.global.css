@@ -44,4 +44,6 @@ html, body, #root, #root > div {
   margin: 0;
   padding: 0;
   overflow: hidden;
+  background: #fefefe;
+  color: #3a3a3a;
 }
