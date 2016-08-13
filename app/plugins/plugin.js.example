@@ -1,0 +1,73 @@
+// Example Plugin
+//
+
+// - registerForAction: Function - allows you to hook into events in the client,
+//                                 e.g. registerForAction('NEW_PRIVMSG', event)
+//                                 where event is a function to call that takes
+//                                 the action as a parameter.
+// - registerForMime: Function - allows you to register to handle the specified
+//                               MIME type being dropped into the client. takes
+//                               a callback to run with the DROPPED_FILE action.
+// - store: Store - the current application store (see the reducers folder).
+// - actions: Object - actions.client is an object containing all client actions
+//                     and actions.ui is an object containing all UI actions.
+const ExamplePlugin = function(registerForAction, registerForMime, store, actions) {
+  // The name that will be displayed to users for your plugin.
+  this.name = 'Example Plugin';
+  // The author who will be shown for this plugin. Use your GitHub username
+  // if possible to make it easy for users to find you.
+  this.author = 'ExampleCreator';
+  // A short description of what this plugin does. Put any important notes
+  // here.
+  this.description = 'Acts as an example plugin.';
+  // A list representing the semantic version of your plugin. (e.g.
+  // [1, 0, 0] = v1.0.0)
+  this.version = [1, 0, 0];
+  // A UUID for your plugin. This is a unique identifier that represents your
+  // plugin, and is used to store your plugin's configuration uniquely.
+  //
+  // You can use this generator: https://guidgenerator.com/
+  // (use the default settings)
+  //
+  // Whenever you change the defaultSettings, you MUST use a new GUID, otherwise
+  // your previous default settings will be cached.
+  this.uuid = 'c162145a-28e1-4c0c-b20e-6db3a83498f7';
+  // The default settings for your plugin. These can be boolean, string, numeric
+  // etc.
+  this.defaultSettings = {
+    enabled: true
+  };
+  // A list representing the settings form. It should be a list of objects that
+  // have the following properties:
+  // - label: Object - should contain:
+  //   - text: String - the label to show for this field
+  // - input: Object - should contain:
+  //   - type: String - a HTML <input> type
+  //   - name: String - the name to map to in the settings (should correspond
+  //                    to a defaultSettings property)
+  //   - Any other HTML properties for your input can also be placed here.
+  // - generateDefault: function(Object) - A function that generates the default
+  //                    content of the text box. This should return an object
+  //                    containing either defaultValue or defaultChecked.
+  //                    The settings parameter is the current settings value
+  //                    which contains **all** settings.
+  this.settings = [
+    {
+      label: {
+        text: 'Enabled'
+      },
+      input: {
+        type: 'checkbox',
+        name: 'enabled',
+      },
+      generateDefault: (settings) => {
+        return {
+          defaultChecked: settings.enabled
+        };
+      }
+    }
+  ];
+};
+
+
+module.exports = ExamplePlugin;

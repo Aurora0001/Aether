@@ -16,7 +16,7 @@ marked.setOptions({
   pedantic: false,
   sanitize: true,
   smartLists: false,
-  smartypants: true
+  smartypants: false
 });
 
 export const CONNECT_BEGIN = 'CONNECT_BEGIN';
@@ -31,6 +31,7 @@ export const NEW_NOTICE = 'NEW_NOTICE';
 export const JOIN_CHANNEL = 'JOIN_CHANNEL';
 export const PART_CHANNEL = 'PART_CHANNEL';
 export const KICK_CHANNEL = 'KICK_CHANNEL';
+export const REMOVE_CHANNEL = 'REMOVE_CHANNEL';
 export const ADD_MODE = 'ADD_MODE';
 export const REMOVE_MODE = 'REMOVE_MODE';
 export const USER_QUIT = 'USER_QUIT';
@@ -153,7 +154,7 @@ export function connect(host, port, ssl, _nick, ident, real, defaultChannels) {
     });
 
     client.addListener('ctcp-version', (from, to, message) => {
-      client.ctcp(from, '', 'VERSION AuroraIRC v0.1.0');
+      client.ctcp(from, '', 'VERSION AuroraIRC v0.2.0');
     });
 
     client.addListener('kill', (nick, reason, channels, message) => {
@@ -222,6 +223,16 @@ export function send_raw(command, args, networkId) {
   return (dispatch, getState) => {
     const client = getState().clients[networkId];
     client.send(command, ...args);
+  };
+}
+
+
+export function remove_channel(channel, networkId) {
+  return {
+    type: REMOVE_CHANNEL,
+    channel,
+    network_id: networkId,
+    self: true
   };
 }
 
@@ -318,6 +329,7 @@ function kick_channel(channel, nick, by, reason, self, networkId) {
     network_id: networkId
   };
 }
+
 
 function part_channel(channel, nick, reason, self, networkId) {
   return {

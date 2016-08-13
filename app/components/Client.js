@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import moment from 'moment';
 import styles from './Client.css';
 import sidebarStyles from './Sidebar.css';
 import NetworkTab from './client/network_bar/NetworkTab.js';
@@ -22,15 +21,27 @@ class Client extends Component {
   render() {
     const { networks, network_states, feeds, users, channels, current_channel,
             change_current_channel, send_part_channel, fold_network_tab,
-            expand_network_tab, counter }
+            expand_network_tab, counter, remove_channel, droppedFile }
             = this.props;
 
+    const actionHandlers = {
+      ME: (message, channel) => this.props.send_action(channel.name, message.slice(1).join(" "), channel.network_id),
+      MSG: (message, channel) => this.props.send_privmsg(message[1], message.slice(2).join(" "), channel.network_id),
+    };
+
+
+    const defaultHandler = (message, channel) => {
+      this.props.send_raw(message[0], message.slice(1), channel.network_id)
+    };
+
     const sendCallback = (message, channel) => {
-      if (message.startsWith('/me')) {
-        this.props.send_action(channel.name, message.slice(4), channel.network_id);
-      } else if (message.startsWith('/') && !message.startsWith('//')) {
-        let parts = message.split(' ');
-        this.props.send_raw(parts[0].slice(1), parts.slice(1), channel.network_id);
+      if (message.startsWith("//")) {
+        this.props.send_privmsg(channel.name, message.slice(1),
+                                channel.network_id);
+      } else if (message.startsWith('/')) {
+        const parts = message.slice(1).split(' ');
+        const handler = actionHandlers[parts[0].toUpperCase()] || defaultHandler;
+        handler(parts, channel);
       } else {
         this.props.send_privmsg(channel.name, message, channel.network_id);
       }
@@ -73,7 +84,11 @@ class Client extends Component {
                             change_current_channel(channels[id].network_id, channels[id].name);
                           },
                           close_callback: () => {
-                            send_part_channel(channels[id].name, channels[id].network_id);
+                            if (channels[id].type === 'channel') {
+                              send_part_channel(channels[id].name, channels[id].network_id);
+                            } else {
+                              remove_channel(channels[id].name, channels[id].network_id);
+                            }
                           },
                           counter: counter[`${channels[id].network_id}:${channels[id].name}`] || -1,
                           selected: current_channel === `${channels[id].network_id}:${channels[id].name}`
@@ -94,7 +109,7 @@ class Client extends Component {
                 return {
                   user: x.nick,
                   text: x.text,
-                  time: moment(x.time).format('LT'),
+                  time: x.time,
                   colour: x.colour,
                   kind: x.kind
                 };
@@ -110,6 +125,15 @@ class Client extends Component {
               (message) => {
                 const channel = channels[current_channel];
                 sendCallback(message, channel);
+              }
+            }
+            dropCallback={
+              (mime, file, contents) => {
+                if (channels.hasOwnProperty(current_channel)) {
+                  droppedFile(mime, file, contents,
+                               channels[current_channel].name,
+                               channels[current_channel].network_id);
+                }
               }
             }
           />

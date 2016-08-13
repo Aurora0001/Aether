@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import moment from 'moment';
 import styles from './ChatMessage.css';
 
 class ChatMessage extends Component {
@@ -22,7 +23,7 @@ class ChatMessage extends Component {
         >
           {user[0].toUpperCase()}
         </span>
-        <abbr className={styles.time}>{time}</abbr>
+        <abbr className={styles.time} title={time}>{moment(time).format('LT')}</abbr>
         <div className={styles.main}>
           <span className={styles.username}>{user}</span>
           <span

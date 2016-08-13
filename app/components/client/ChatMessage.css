@@ -16,6 +16,11 @@
   word-wrap: break-word;
 }
 
+.content pre, .content blockquote {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 .message:first-of-type {
   padding-top: 0.3rem;
 }

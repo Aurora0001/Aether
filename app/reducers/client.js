@@ -2,7 +2,7 @@ import crypto from 'crypto';
 import { NEW_PRIVMSG, NEW_ACTION, JOIN_CHANNEL, PART_CHANNEL, KICK_CHANNEL,
          NEW_NOTICE, ADD_MODE, REMOVE_MODE, USER_QUIT, CONNECTED, RECEIVE_NAMES,
          NICK_CHANGE, SET_TOPIC, USER_KILLED, DISCONNECTED, SERVER_ERROR,
-         NEW_SELF_PRIVMSG
+         NEW_SELF_PRIVMSG, REMOVE_CHANNEL
        } from '../actions/client';
 
 export function clients(state = {}, action) {
@@ -28,6 +28,7 @@ export function channels(state = {}, action) {
       return addChannel(state, action.nick, 'pm', action.network_id);
     case PART_CHANNEL:
     case KICK_CHANNEL:
+    case REMOVE_CHANNEL:
       if (!action.self) {
         return state;
       }

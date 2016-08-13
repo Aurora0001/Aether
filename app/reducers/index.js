@@ -3,7 +3,8 @@ import { routerReducer as routing } from 'react-router-redux';
 import * as storage from 'redux-storage';
 import { clients, feeds, users, channels } from './client.js';
 import { current_channel, network_states, channel_counter, networks,
-         highlightWords } from './ui.js';
+         highlightWords, pluginSettings, pluginList, dragDropHandlers
+       } from './ui.js';
 
 const rootReducer = combineReducers({
   clients,
@@ -15,7 +16,10 @@ const rootReducer = combineReducers({
   current_channel,
   network_states,
   channel_counter,
-  highlightWords
+  highlightWords,
+  pluginSettings,
+  pluginList,
+  dragDropHandlers
 });
 
 export default storage.reducer(rootReducer);

@@ -10,7 +10,7 @@ import * as storage from 'redux-storage';
 import rootReducer from '../reducers';
 import * as clientActions from '../actions/client.js';
 import * as uiActions from '../actions/ui.js';
-import { pluginMiddleware } from './pluginMiddleware.js';
+import { pluginMiddleware, registerHook, loadPlugins } from './pluginMiddleware.js';
 
 const actionCreators = {
   ...clientActions,
@@ -27,11 +27,14 @@ const router = routerMiddleware(hashHistory);
 let engine = createEngine('redux');
 
 engine = filter(engine, [
-  'networks'
+  'networks',
+  'pluginSettings'
 ], []);
 const storeMiddleware = storage.createMiddleware(engine, [], [
   uiActions.ADD_NETWORK,
-  uiActions.REMOVE_NETWORK
+  uiActions.REMOVE_NETWORK,
+  uiActions.ADD_PLUGIN,
+  uiActions.SET_PLUGIN_SETTINGS
 ]);
 
 const enhancer = compose(
@@ -54,6 +57,9 @@ export default function configureStore(initialState) {
     );
   }
 
-  storage.createLoader(engine)(store);
+  const load = storage.createLoader(engine);
+  load(store).then(newState => {
+    loadPlugins(store);
+  });
   return store;
 }

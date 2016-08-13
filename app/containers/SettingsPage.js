@@ -5,7 +5,9 @@ import * as UIActions from '../actions/ui.js';
 
 function mapStateToProps(state) {
   return {
-    networks: state.networks
+    networks: state.networks,
+    pluginList: state.pluginList,
+    pluginSettings: state.pluginSettings
   };
 }
 

@@ -16,7 +16,7 @@ class NetworkSettingsItem extends Component {
   };
 
   onSubmit = (event) => {
-    this.props.removeNetwork(event.target.host.value, parseInt(event.target.port.value, 10));
+    this.props.removeNetwork(this.props.host, this.props.port);
     this.props.addNetwork(event.target.name.value,
                           event.target.host.value,
                           parseInt(event.target.port.value, 10),

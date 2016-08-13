@@ -18,7 +18,8 @@ class SettingsBar extends Component {
           </Link>
           <i className="material-icons md-24">settings</i> Settings
         </div>
-        <SettingsBarItem />
+        <SettingsBarItem name="Networks" path="/settings/networks" />
+        <SettingsBarItem name="Plugins" path="/settings/plugins" />
       </div>
     );
   }

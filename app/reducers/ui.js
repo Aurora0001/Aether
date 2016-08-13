@@ -1,5 +1,6 @@
 import { CHANGE_CURRENT_CHANNEL, CREATE_NETWORK_TAB, FOLD_NETWORK_TAB,
-         EXPAND_NETWORK_TAB, ADD_NETWORK, REMOVE_NETWORK
+         EXPAND_NETWORK_TAB, ADD_NETWORK, REMOVE_NETWORK,
+         ADD_PLUGIN, SET_PLUGIN_SETTINGS, REGISTER_HANDLER
        } from '../actions/ui.js';
 import { CONNECTED, NEW_PRIVMSG, NEW_ACTION, NICK_CHANGE }
       from '../actions/client.js';
@@ -108,6 +109,49 @@ export function highlightWords(state = {}, action) {
       } else {
         return state;
       }
+    default:
+      return state;
+  }
+}
+
+export function pluginList(state = [], action) {
+  switch (action.type) {
+    case ADD_PLUGIN:
+      return [
+        ...state,
+        {
+            ...action.plugin
+        }
+      ];
+    default:
+      return state;
+  }
+}
+
+export function pluginSettings(state = {}, action) {
+  switch (action.type) {
+    case ADD_PLUGIN:
+      if (state.hasOwnProperty(action.plugin.uuid)) {
+        return state;
+      }
+      const newObj = Object.assign({}, state);
+      newObj[action.uuid] = action.plugin.defaultSettings;
+      return newObj;
+    case SET_PLUGIN_SETTINGS:
+      const newSettings = Object.assign({}, state);
+      newSettings[action.uuid] = action.settings;
+      return newSettings;
+    default:
+      return state;
+  }
+}
+
+export function dragDropHandlers(state = {}, action) {
+  switch (action.type) {
+    case REGISTER_HANDLER:
+      const newObj = Object.assign({}, state);
+      newObj[action.mime] = action.handler;
+      return newObj;
     default:
       return state;
   }

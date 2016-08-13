@@ -9,11 +9,11 @@ class SettingsBarItem extends Component {
 
   render() {
     return (
-      <a className={styles.item}>
+      <Link to={this.props.path} className={styles.item}>
         <span className={styles.item_text}>
-          Networks
+          {this.props.name}
         </span>
-      </a>
+      </Link>
     );
   }
 }

@@ -1,0 +1,57 @@
+.uuid:before {
+  content: "(";
+}
+
+.uuid:after {
+  content: ")";
+}
+
+.uuid {
+  color: rgba(0, 0, 0, 0.3);
+  float: right;
+  font-weight: lighter;
+  font-size: 0.75em;
+}
+
+.author:before {
+  content: "Plugin Author: ";
+  font-weight: bold;
+}
+
+.name {
+  color: rgba(0, 0, 0, 0.8);
+  padding-bottom: 3px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.form_item input[type=text], .form_item input[type=number] {
+  border-radius: 0.3rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+  width: 100%;
+}
+
+.form_item label {
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.form_item input[type=submit] {
+  background-color: #2185D0;
+  color: #fff;
+  border: 0;
+  border-radius: 0.2rem;
+  padding: 0.75rem 0.75rem 0.75rem 0.75rem;
+  margin-right: 1rem;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.form_item input[type=submit]:hover {
+  cursor: pointer;
+}
+
+.settings_header {
+  color: rgba(0, 0, 0, 0.7);
+}

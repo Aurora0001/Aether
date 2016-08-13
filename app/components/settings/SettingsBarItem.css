@@ -7,6 +7,7 @@
   height: auto;
   padding-left: 0.75rem;
   padding-right: 0.75rem;
+  text-decoration: none; 
 }
 
 .item_text {

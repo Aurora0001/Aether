@@ -22,7 +22,12 @@ class NetworkSettings extends Component {
           {
             networks.map(item => {
               return (
-                <NetworkSettingsItem addNetwork={addNetwork} removeNetwork={removeNetwork} key={`${item.host}:${item.port}`} {...item} />
+                <NetworkSettingsItem
+                  addNetwork={addNetwork}
+                  removeNetwork={removeNetwork}
+                  key={`${item.host}:${item.port}`}
+                  {...item}
+                />
               );
             })
           }
