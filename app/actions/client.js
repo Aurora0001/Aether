@@ -154,7 +154,7 @@ export function connect(host, port, ssl, _nick, ident, real, defaultChannels) {
     });
 
     client.addListener('ctcp-version', (from, to, message) => {
-      client.ctcp(from, '', 'VERSION AuroraIRC v0.2.0');
+      client.ctcp(from, '', 'VERSION AuroraIRC v0.3.0');
     });
 
     client.addListener('kill', (nick, reason, channels, message) => {
