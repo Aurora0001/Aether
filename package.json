@@ -1,6 +1,6 @@
 {
-  "name": "pantheon-irc",
-  "productName": "Pantheon IRC Client",
+  "name": "aether-irc",
+  "productName": "Aether IRC Client",
   "version": "0.4.0",
   "main": "main.js",
   "scripts": {
