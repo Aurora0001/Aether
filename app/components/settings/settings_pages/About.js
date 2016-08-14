@@ -56,7 +56,7 @@ class About extends Component {
             </p>
           </div>
           <h4>
-            Other dependencies may be found in resources/app/app/node_modules,
+            Other dependencies may be found in resources/app/node_modules,
             along with their licenses.
           </h4>
         </div>

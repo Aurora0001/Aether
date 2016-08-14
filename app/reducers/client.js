@@ -122,11 +122,10 @@ export function feeds(state = {}, action) {
 export function users(state = {}, action) {
   switch (action.type) {
     case JOIN_CHANNEL:
-      if (!action.self) {
-        return state;
-      }
       let new_state = Object.assign({}, state);
-      delete new_state[`${action.network_id}:${action.channel}`];
+      if (action.self) {
+        delete new_state[`${action.network_id}:${action.channel}`];
+      }
       add_user(new_state, action.network_id, action.nick, '', action.channel);
       return new_state;
     case PART_CHANNEL:
