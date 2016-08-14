@@ -42,10 +42,12 @@ class ChatBar extends Component {
   }
 
   clickEvent = () => {
-    this.props.callback(this.state.text);
-    this.setState({
-      text: ''
-    });
+    if (this.state.text !== '') {
+      this.props.callback(this.state.text);
+      this.setState({
+        text: ''
+      });
+    }
   }
 
   render() {
@@ -58,7 +60,13 @@ class ChatBar extends Component {
           onKeyDown={this.keyPress}
           value={this.state.text}
         />
-        <button type="submit" onClick={this.clickEvent}>Send</button>
+        <button
+          type="submit"
+          className={this.state.text==='' ? styles.disabled : ''}
+          onClick={this.clickEvent}
+        >
+          Send
+        </button>
       </div>
     );
   }

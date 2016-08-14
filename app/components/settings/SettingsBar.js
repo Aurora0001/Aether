@@ -20,6 +20,7 @@ class SettingsBar extends Component {
         </div>
         <SettingsBarItem name="Networks" path="/settings/networks" />
         <SettingsBarItem name="Plugins" path="/settings/plugins" />
+        <SettingsBarItem name="About" path="/settings/about" />
       </div>
     );
   }

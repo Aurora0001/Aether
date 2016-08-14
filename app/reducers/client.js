@@ -2,7 +2,7 @@ import crypto from 'crypto';
 import { NEW_PRIVMSG, NEW_ACTION, JOIN_CHANNEL, PART_CHANNEL, KICK_CHANNEL,
          NEW_NOTICE, ADD_MODE, REMOVE_MODE, USER_QUIT, CONNECTED, RECEIVE_NAMES,
          NICK_CHANGE, SET_TOPIC, USER_KILLED, DISCONNECTED, SERVER_ERROR,
-         NEW_SELF_PRIVMSG, REMOVE_CHANNEL
+         NEW_SELF_PRIVMSG, REMOVE_CHANNEL, JOIN_PRIVMSG
        } from '../actions/client';
 
 export function clients(state = {}, action) {
@@ -22,7 +22,8 @@ export function channels(state = {}, action) {
       if (!action.self) {
         return state;
       }
-      return addChannel(state, action.channel, 'channel', action.network_id);
+    case JOIN_PRIVMSG:
+      return addChannel(state, action.channel, action.messageType || 'channel', action.network_id);
     case NEW_SELF_PRIVMSG:
       // Handles both JOIN_CHANNEL and NEW_SELF_PRIVMSG
       return addChannel(state, action.nick, 'pm', action.network_id);
@@ -79,8 +80,9 @@ export function feeds(state = {}, action) {
     case KICK_CHANNEL:
       return append_message(state, action.network_id, action.nick, action.channel, `was kicked from ${action.channel} by ${action.by} (${action.reason})`, 'kick');
     case NEW_NOTICE:
-      return append_message(state, action.network_id, action.sender, action.to,
-                            action.text, 'notice');
+      let newObj = Object.assign({}, state);
+      return appendToChannelId(newObj, action.destChannel, action.sender,
+                               action.to, action.text, 'notice');
     case ADD_MODE:
       return append_message(state, action.network_id, action.by, action.channel,
                             `added mode +${action.mode} ${action.argument}`,
@@ -220,15 +222,19 @@ function remove_user(state, network_id, nick, channel) {
 
 function append_message(state, networkId, nick, to, text, kind) {
   // Copy the current state
-  let new_obj = Object.assign({}, state);
-  const channel_id = `${networkId}:${to}`;
-  let channel_feed = new_obj[channel_id] || [];
-  const last_message = channel_feed[channel_feed.length - 1];
-  if (last_message && last_message.nick === nick && last_message.kind === kind
-      && kind === 'privmsg') {
+  let newObj = Object.assign({}, state);
+  const channelId = `${networkId}:${to}`;
+  return appendToChannelId(newObj, channelId, nick, to, text, kind);
+}
+
+function appendToChannelId(state, channelId, nick, to, text, kind) {
+  let channelFeed = state[channelId] || [];
+  const lastMessage = channelFeed[channelFeed.length - 1];
+  if (lastMessage && lastMessage.nick === nick && lastMessage.kind === kind
+      && (kind === 'privmsg' || kind === 'notice')) {
     // "Squash" privmsgs together from the same author.
-    last_message.text += `<br>${text}`;
-    last_message.time = new Date();
+    lastMessage.text += `<br>${text}`;
+    lastMessage.time = new Date();
   } else {
     // Different message - create new item
     const md5 = crypto.createHash('md5');
@@ -243,8 +249,8 @@ function append_message(state, networkId, nick, to, text, kind) {
       time: new Date()
     };
 
-    channel_feed.push(action);
-    new_obj[channel_id] = channel_feed;
+    channelFeed.push(action);
+    state[channelId] = channelFeed;
   }
-  return new_obj;
+  return state;
 }

@@ -1,5 +1,6 @@
 import irc from 'irc';
 import marked from 'marked';
+import { VERSION, NAME } from '../APP_INFORMATION.js';
 
 const renderer = new marked.Renderer();
 renderer.paragraph = (text) => text;
@@ -43,6 +44,7 @@ export const SEND_PART_CHANNEL = 'SEND_PART_CHANNEL';
 export const USER_KILLED = 'USER_KILLED';
 export const SERVER_ERROR = 'SERVER_ERROR';
 export const NEW_SELF_PRIVMSG = 'NEW_SELF_PRIVMSG';
+export const JOIN_PRIVMSG = 'JOIN_PRIVMSG';
 
 // If any of these modes are seen, we need to refresh the names list.
 const DISPLAY_MODES = ['q', 'a', 'o', 'h', 'v'];
@@ -116,7 +118,9 @@ export function connect(host, port, ssl, _nick, ident, real, defaultChannels) {
     });
 
     client.addListener('notice', (channel, to, text, message) => {
-      dispatch(new_notice(channel || host, to, text, networkId));
+      dispatch(new_notice(channel || host, to,
+                          getState().current_channel || networkId, text,
+                          networkId));
     });
 
     client.addListener('topic', (channel, topic, nick, message) => {
@@ -154,7 +158,7 @@ export function connect(host, port, ssl, _nick, ident, real, defaultChannels) {
     });
 
     client.addListener('ctcp-version', (from, to, message) => {
-      client.ctcp(from, '', 'VERSION AuroraIRC v0.3.0');
+      client.ctcp(from, '', `VERSION ${NAME} ${VERSION}`);
     });
 
     client.addListener('kill', (nick, reason, channels, message) => {
@@ -177,6 +181,29 @@ export function connect(host, port, ssl, _nick, ident, real, defaultChannels) {
       });
     });
   };
+}
+
+export function disconnect(networkId) {
+  return (dispatch, getState) => {
+    const client = getState().clients[networkId];
+    if (client) {
+      client.disconnect('Quit');
+      client.removeAllListeners();
+
+      dispatch({
+        type: DISCONNECT_BEGIN
+      });
+    }
+  };
+}
+
+export function joinPrivmsg(channel, networkId) {
+  return {
+    type: JOIN_PRIVMSG,
+    channel,
+    network_id: networkId,
+    messageType: 'pm'
+  }
 }
 
 export function send_join_channel(channel, networkId) {
@@ -298,11 +325,12 @@ function remove_mode(channel, by, mode, argument, networkId) {
   };
 }
 
-function new_notice(sender, to, text, networkId) {
+function new_notice(sender, to, destChannel, text, networkId) {
   return {
     type: NEW_NOTICE,
     sender,
     to,
+    destChannel,
     text,
     network_id: networkId
   };

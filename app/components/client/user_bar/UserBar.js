@@ -6,7 +6,8 @@ import styles from './UserBar.css';
 
 class UserBar extends Component {
   static PropTypes = {
-    users: PropTypes.array.isRequired
+    users: PropTypes.array.isRequired,
+    joinChannel: PropTypes.func.isRequired
   };
 
   render() {
@@ -43,6 +44,7 @@ class UserBar extends Component {
                       key={item.name}
                       name={item.name}
                       role={item.role}
+                      joinPrivmsg={() => this.props.joinChannel(item.name)}
                     />
                   );
                 })

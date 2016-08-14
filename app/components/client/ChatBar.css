@@ -37,11 +37,11 @@
   opacity: 0.8;
 }
 
-.chat_bar button:disabled {
+.chat_bar button.disabled {
   background: rgba(0, 0, 0, 0.1);
   color: rgba(0, 0, 0, 0.5);
 }
 
-.chat_bar button:disabled:hover {
+.chat_bar button.disabled:hover {
   opacity: 1;
 }

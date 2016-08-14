@@ -1,7 +1,7 @@
 {
-  "name": "irc-client",
-  "productName": "IRC Client",
-  "version": "0.2.0",
+  "name": "pantheon-irc",
+  "productName": "Pantheon IRC Client",
+  "version": "0.4.0",
   "main": "main.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test mocha --compilers js:babel-register --recursive --require ./test/setup.js test/**/*.spec.js",

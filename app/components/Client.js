@@ -9,6 +9,7 @@ import UserBar from './client/user_bar/UserBar.js';
 class Client extends Component {
   static propTypes = {
     networks: PropTypes.array.isRequired,
+    feeds: PropTypes.object.isRequired
   };
 
   componentWillMount() {
@@ -18,10 +19,15 @@ class Client extends Component {
     });
   }
 
+  componentWillUnmount() {
+    this.props.disconnect(this.props.channels[this.props.current_channel].network_id);
+  }
+
   render() {
     const { networks, network_states, feeds, users, channels, current_channel,
             change_current_channel, send_part_channel, fold_network_tab,
-            expand_network_tab, counter, remove_channel, droppedFile }
+            expand_network_tab, counter, remove_channel, droppedFile,
+            joinPrivmsg }
             = this.props;
 
     const actionHandlers = {
@@ -139,7 +145,10 @@ class Client extends Component {
             }
           />
         </div>
-        <UserBar users={users[current_channel]} />
+        <UserBar
+          users={users[current_channel]}
+          joinChannel={(nick) => joinPrivmsg(nick, channels[current_channel].network_id)}
+        />
       </div>
     );
   }

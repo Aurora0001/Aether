@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import pageStyles from './Page.css';
 import styles from './NetworkSettingsItem.css';
+
 class NetworkSettingsItem extends Component {
   static propTypes = {
     name: PropTypes.string,
@@ -39,7 +41,7 @@ class NetworkSettingsItem extends Component {
     const default_channels = this.props.default_channels || [];
     return (
       <form onSubmit={this.onSubmit} className={styles.form_root}>
-        <h3 className={styles.divider}>{name || 'New Server'}</h3>
+        <h3 className={pageStyles.divider}>{name || 'New Server'}</h3>
         <h4>Server</h4>
         <div className={styles.form_item}>
           <label htmlFor="name">Network Name</label>

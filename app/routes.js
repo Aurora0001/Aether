@@ -6,6 +6,7 @@ import ClientPage from './containers/ClientPage';
 import SettingsPage from './containers/SettingsPage';
 import NetworkSettings from './components/settings/settings_pages/NetworkSettings.js';
 import PluginSettings from './components/settings/settings_pages/PluginSettings.js';
+import About from './components/settings/settings_pages/About.js';
 
 export default (
   <Route path="/" component={App}>
@@ -15,6 +16,7 @@ export default (
       <IndexRoute component={NetworkSettings} />
       <Route path="networks" component={NetworkSettings} />
       <Route path="plugins" component={PluginSettings} />
+      <Route path="about" component={About} />
     </Route>
   </Route>
 );

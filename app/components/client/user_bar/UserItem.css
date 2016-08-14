@@ -1,5 +1,33 @@
+span.user_opts a {
+  flex: 1 1 auto;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  padding-right: 0.2rem;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  text-align: center;
+  font-size: 0.8rem;
+}
 
-ul li {
+span.user_opts a:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+}
+
+span.user_opts {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  width: 100%;
+  min-width: 100%;
+  display: flex;
+  position: relative;
+  flex-direction: row;
+}
+
+span.hidden {
+  display: none;
+}
+
+ul li.user {
   font-size: 0.8em;
   display: block;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -7,7 +35,7 @@ ul li {
   box-sizing: border-box;
 }
 
-ul li a {
+ul li.user a {
   display: block;
   padding: 0.8rem 1rem;
   text-decoration: none;
