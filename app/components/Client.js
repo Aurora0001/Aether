@@ -147,7 +147,11 @@ class Client extends Component {
         </div>
         <UserBar
           users={users[current_channel]}
-          joinChannel={(nick) => joinPrivmsg(nick, channels[current_channel].network_id)}
+          joinChannel={(nick) => {
+            const networkId = channels[current_channel].network_id;
+            joinPrivmsg(nick, networkId);
+            change_current_channel(networkId, nick);
+          }}
         />
       </div>
     );
