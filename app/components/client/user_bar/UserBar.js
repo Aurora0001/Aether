@@ -30,7 +30,7 @@ class UserBar extends Component {
     });
 
     return (
-      <div className={`${sidebarStyles.sidebar} ${sidebarStyles.right}`}>
+      <div className={`${sidebarStyles.sidebar} ${users.length===0?sidebarStyles.hidden:undefined} ${sidebarStyles.right}`}>
         <span className={sidebarStyles.panel_header}>
             <i className="material-icons">people</i>
             Users <span className={styles.count}>{users.length}</span>

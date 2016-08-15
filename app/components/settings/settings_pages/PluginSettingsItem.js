@@ -28,24 +28,26 @@ class NetworkSettings extends Component {
         </h3>
         <div className={styles.description}>{plugin.description}</div>
         <div className={styles.author}>{plugin.author}</div>
-        <h4 className={styles.settings_header}>Settings for {plugin.name}</h4>
-        <form
-          onSubmit={this.onSubmit(plugin.settings.map(item => item.input.name))}
-          className={styles.form_item}
-        >
-          {
-            plugin.settings.map(item => {
-              const defaultValue = item.generateDefault(pluginSettings);
-              return (
-                <div>
-                  <label>{item.label.text}</label>
-                  <input {...item.input} {...defaultValue} />
-                </div>
-              );
-            })
-          }
-          <input type="submit" />
-        </form>
+        <div className={plugin.settings.length===0?styles.hidden:undefined}>
+          <h4 className={styles.settings_header}>Settings for {plugin.name}</h4>
+          <form
+            onSubmit={this.onSubmit(plugin.settings.map(item => item.input.name))}
+            className={styles.form_item}
+          >
+            {
+              plugin.settings.map(item => {
+                const defaultValue = item.generateDefault(pluginSettings);
+                return (
+                  <div>
+                    <label>{item.label.text}</label>
+                    <input {...item.input} {...defaultValue} />
+                  </div>
+                );
+              })
+            }
+            <input type="submit" />
+          </form>
+        </div>
       </div>
     );
   }

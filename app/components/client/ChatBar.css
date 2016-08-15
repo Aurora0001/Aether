@@ -9,7 +9,8 @@
 }
 
 .chat_bar input {
-  width: calc(100% - 7rem);
+  padding-right: 1rem;
+  width: calc(100% - 8rem);
   margin: 0;
   padding: 0.8rem;
   border: 0;
