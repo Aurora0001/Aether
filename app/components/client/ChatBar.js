@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import twemoji from 'twemoji';
+import EmojiSelector from './EmojiSelector.js';
 const twemojiImages = require.context('file!../../static/72x72', true, /\.png$/);
 import styles from './ChatBar.css';
-import emojiList from './emoji_map.json';
 
 class ChatBar extends Component {
   static PropTypes = {
@@ -14,31 +14,13 @@ class ChatBar extends Component {
     super(props);
     this.state = {
       text: '',
-      hidden: true,
-      emoji: emojiList.map(item => {
-        const emojiCode = item.unicode;
-        const emojiImg = twemoji.parse(emojiCode, (icon, options) => {
-          return twemojiImages('./' + icon + '.png');
-        });
-        return (
-          <li
-            onClick={() => this.insertEmoji(item.unicode)}
-            className={styles.emoji_item}
-            key={item.unicode}
-            dangerouslySetInnerHTML={{
-              __html: emojiImg
-            }}
-          />
-        );
-      })
+      hidden: true
     };
   }
 
   inputChange = (event) => {
     this.setState({
       text: event.target.value,
-      hidden: this.state.hidden,
-      emoji: this.state.emoji
     });
   }
 
@@ -69,26 +51,20 @@ class ChatBar extends Component {
     if (this.state.text !== '') {
       this.props.callback(this.state.text);
       this.setState({
-        text: '',
-        hidden: this.state.hidden,
-        emoji: this.state.emoji
+        text: ''
       });
     }
   }
 
   insertEmoji = (icon) => {
     this.setState({
-      text: this.state.text + icon,
-      hidden: this.state.hidden,
-      emoji: this.state.emoji
+      text: this.state.text + icon
     });
   };
 
   toggleEmoji = () => {
     this.setState({
-      text: this.state.text,
-      hidden: !this.state.hidden,
-      emoji: this.state.emoji
+      hidden: !this.state.hidden
     });
   };
 
@@ -114,16 +90,7 @@ class ChatBar extends Component {
         >
           Send
         </button>
-        <div
-          className={`${styles.emoji_list} ${this.state.hidden?styles.hidden:null}`}
-        >
-          <h3>Emoji</h3>
-          <ul>
-            {
-              this.state.emoji
-            }
-          </ul>
-        </div>
+        <EmojiSelector hidden={this.state.hidden} insertEmoji={this.insertEmoji} />
       </div>
     );
   }
