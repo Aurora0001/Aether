@@ -1,5 +1,8 @@
 import React, { Component, PropTypes } from 'react';
+import twemoji from 'twemoji';
+const twemojiImages = require.context('file!../../static/72x72', true, /\.png$/);
 import styles from './ChatBar.css';
+import emojiList from './emoji_map.json';
 
 class ChatBar extends Component {
   static PropTypes = {
@@ -10,13 +13,32 @@ class ChatBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: ''
+      text: '',
+      hidden: true,
+      emoji: emojiList.map(item => {
+        const emojiCode = item.unicode;
+        const emojiImg = twemoji.parse(emojiCode, (icon, options) => {
+          return twemojiImages('./' + icon + '.png');
+        });
+        return (
+          <li
+            onClick={() => this.insertEmoji(item.unicode)}
+            className={styles.emoji_item}
+            key={item.unicode}
+            dangerouslySetInnerHTML={{
+              __html: emojiImg
+            }}
+          />
+        );
+      })
     };
   }
 
   inputChange = (event) => {
     this.setState({
-      text: event.target.value
+      text: event.target.value,
+      hidden: this.state.hidden,
+      emoji: this.state.emoji
     });
   }
 
@@ -32,7 +54,9 @@ class ChatBar extends Component {
           words.pop();
           words.push(suggestions[0].name);
           this.setState({
-            text: words.join(' ')
+            text: words.join(' '),
+            hidden: this.state.hidden,
+            emoji: this.state.emoji
           });
         }
       }
@@ -45,10 +69,28 @@ class ChatBar extends Component {
     if (this.state.text !== '') {
       this.props.callback(this.state.text);
       this.setState({
-        text: ''
+        text: '',
+        hidden: this.state.hidden,
+        emoji: this.state.emoji
       });
     }
   }
+
+  insertEmoji = (icon) => {
+    this.setState({
+      text: this.state.text + icon,
+      hidden: this.state.hidden,
+      emoji: this.state.emoji
+    });
+  };
+
+  toggleEmoji = () => {
+    this.setState({
+      text: this.state.text,
+      hidden: !this.state.hidden,
+      emoji: this.state.emoji
+    });
+  };
 
   render() {
     return (
@@ -60,6 +102,11 @@ class ChatBar extends Component {
           onKeyDown={this.keyPress}
           value={this.state.text}
         />
+        <a className={styles.emoji_add} onClick={this.toggleEmoji}>
+          <i className="material-icons">
+            insert_emoticon
+          </i>
+        </a>
         <button
           type="submit"
           className={this.state.text==='' ? styles.disabled : ''}
@@ -67,6 +114,16 @@ class ChatBar extends Component {
         >
           Send
         </button>
+        <div
+          className={`${styles.emoji_list} ${this.state.hidden?styles.hidden:null}`}
+        >
+          <h3>Emoji</h3>
+          <ul>
+            {
+              this.state.emoji
+            }
+          </ul>
+        </div>
       </div>
     );
   }

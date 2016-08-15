@@ -47,3 +47,10 @@ html, body, #root, #root > div {
   background: #fefefe;
   color: #3a3a3a;
 }
+
+img.emoji {
+   height: 1.4em;
+   width: 1.4em;
+   margin: 0 .05em 0 .1em;
+   vertical-align: -0.1em;
+}

@@ -45,3 +45,40 @@
 .chat_bar button.disabled:hover {
   opacity: 1;
 }
+
+.emoji_add {
+  position: absolute;
+  top: 0.5rem;
+  right: 5.5rem;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+a.emoji_add:hover {
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.emoji_list {
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 1px 0 0 rgba(0, 0, 0, 0.2);
+  width: 30rem;
+  height: 10rem;
+  position: absolute;
+  top: -11rem;
+  right: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  overflow: auto;
+}
+
+.emoji_list.hidden {
+  display: none;
+}
+
+.emoji_item {
+  display: inline;
+  word-break: break-all;
+  padding: 0.2rem 0.2rem 0.2rem 0.2rem;
+}
