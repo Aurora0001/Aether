@@ -55,10 +55,36 @@ class About extends Component {
               &nbsp;by Google.
             </p>
           </div>
+          <div className={styles.item}>
+            <h3 className={styles.divider}>Twitter Twemoji</h3>
+            <p>
+              Graphics licensed under the&nbsp;
+              <a href="https://github.com/twitter/twemoji/blob/gh-pages/LICENSE-GRAPHICS" target="_blank">
+                CC BY 4.0
+              </a>.
+              Rendering code from the 'twemoji' library is available under the&nbsp;
+              <a href="https://github.com/twitter/twemoji/blob/gh-pages/LICENSE" target="_blank">
+                MIT License
+              </a>.
+            </p>
+          </div>
           <h4>
             Other dependencies may be found in resources/app/node_modules,
             along with their licenses.
           </h4>
+          <h4>
+            THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+            IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+            FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+            AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+            LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+            OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+            THE SOFTWARE.
+          </h4>
+          <p>
+            If you do not agree with any of the above conditions, discontinue use
+            of this program immediately.
+          </p>
         </div>
       </div>
     );

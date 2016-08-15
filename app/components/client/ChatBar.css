@@ -59,7 +59,6 @@ a.emoji_add:hover {
 }
 
 .emoji_list {
-  border-radius: 10px;
   background: rgba(255, 255, 255, 0.8);
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 1px 1px 0 0 rgba(0, 0, 0, 0.2);
@@ -68,9 +67,13 @@ a.emoji_add:hover {
   position: absolute;
   top: -11rem;
   right: 1rem;
+}
+
+.emoji_list ul {
   padding-left: 1rem;
   padding-right: 1rem;
   overflow: auto;
+  height: calc(100% - 1.6rem);
 }
 
 .emoji_list.hidden {
@@ -80,5 +83,57 @@ a.emoji_add:hover {
 .emoji_item {
   display: inline;
   word-break: break-all;
-  padding: 0.2rem 0.2rem 0.2rem 0.2rem;
+  padding: 0.4rem 0.4rem 0.4rem 0.4rem;
+}
+
+.emoji_item:hover {
+  cursor: pointer;
+}
+
+.emoji_item img {
+  margin: 0;
+  vertical-align: 0;
+}
+
+.emoji_header, .emoji_header a i {
+  font-size: 1rem;
+  line-height: 1rem;
+  font-weight: bold;
+}
+
+.emoji_header {
+  width: 100%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 0.2rem;
+  margin-top: 0.2rem;
+}
+
+.emoji_header a {
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  padding-top: 0.4rem;
+  height: 1.4rem;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.emoji_header a.active {
+  background: rgba(33, 133, 208, 0.7);
+  color: #fff;
+}
+
+.emoji_header a:not(.active):hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.emoji_header a:hover {
+  cursor: pointer;
+}
+
+.emoji_header input.search {
+  display: inline-block;
+  width: auto;
+  top: 0;
+  position: absolute;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
 }
