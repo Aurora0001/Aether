@@ -13,7 +13,7 @@ class EmojiSelector extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      emoji: this.filterEmoji(),
+      emoji: this.filterEmoji('All'),
       category: 'All',
       filterString: ''
     };

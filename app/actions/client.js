@@ -51,17 +51,26 @@ export const JOIN_PRIVMSG = 'JOIN_PRIVMSG';
 // If any of these modes are seen, we need to refresh the names list.
 const DISPLAY_MODES = ['q', 'a', 'o', 'h', 'v'];
 
-export function connect(host, port, ssl, _nick, ident, real, defaultChannels) {
+export function connect(host, port, ssl, _nick, ident, real, pass, sasl, invalid, defaultChannels) {
   return (dispatch, getState) => {
     dispatch(connect_start());
-    const client = new irc.Client(host, _nick, {
+    const config = {
       userName: ident,
       realName: real,
       port,
       autoConnect: false,
       secure: ssl,
+      sasl,
+      selfSigned: invalid,
+      certExpired: invalid,
       channels: defaultChannels
-    });
+    };
+
+    if (pass) {
+      config.password = pass;
+    }
+
+    const client = new irc.Client(host, _nick, config);
 
     const networkId = `${host}:${port}`;
 

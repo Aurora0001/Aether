@@ -89,7 +89,7 @@ export function create_network_tab(networkId) {
   };
 }
 
-export function add_network(name, host, port, ssl, nick, ident, real, defaultChannels = []) {
+export function add_network(name, host, port, ssl, nick, ident, real, password, sasl, invalid, defaultChannels = []) {
   return {
     type: ADD_NETWORK,
     host,
@@ -99,6 +99,9 @@ export function add_network(name, host, port, ssl, nick, ident, real, defaultCha
     ident,
     real,
     name,
+    password,
+    sasl,
+    invalid,
     default_channels: defaultChannels
   };
 }

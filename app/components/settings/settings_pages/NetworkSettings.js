@@ -18,7 +18,7 @@ class NetworkSettings extends Component {
           <i className="material-icons md-24">device_hub</i> Networks
         </div>
         <div className={styles.settings_body}>
-          <button className={styles.add} onClick={() => addNetwork('New Network', '', 6667, false, '', '', '')}>Add New Network</button>
+          <button className={styles.add} onClick={() => addNetwork('New Network', '', 6667, false, '', '', '', null, false, false)}>Add New Network</button>
           {
             networks.map(item => {
               return (

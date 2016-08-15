@@ -15,7 +15,8 @@ class Client extends Component {
   componentWillMount() {
     this.props.networks.forEach(network => {
       this.props.create_network_tab(`${network.host}:${network.port}`);
-      this.props.connect(network.host, network.port, network.ssl, network.nick, network.ident, network.real, network.default_channels);
+      this.props.connect(network.host, network.port, network.ssl, network.nick, network.ident, network.real,
+        network.password, network.sasl, network.invalid, network.default_channels);
     });
   }
 

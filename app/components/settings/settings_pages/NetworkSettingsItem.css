@@ -21,7 +21,8 @@ form.form_root input[type=submit]:hover, .danger:hover {
   padding-bottom: 0.5rem;
 }
 
-.form_item input[type=text], .form_item input[type=number] {
+.form_item input[type=text], .form_item input[type=number],
+.form_item input[type=password], .form_item select  {
   border-radius: 0.3rem;
   border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 0.5rem 0.5rem 0.5rem 0.5rem;
@@ -31,4 +32,8 @@ form.form_root input[type=submit]:hover, .danger:hover {
 .form_item label {
   font-size: 0.8rem;
   font-weight: bold;
+}
+
+.hidden {
+  display: none;
 }

@@ -69,6 +69,9 @@ export function networks(state = [], action) {
           ident: action.ident,
           real: action.real,
           name: action.name,
+          password: action.password,
+          sasl: action.sasl,
+          invalid: action.invalid,
           default_channels: action.default_channels
         }
       ];
