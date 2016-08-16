@@ -76,11 +76,7 @@ class ChatBox extends Component {
             messages.map(item => {
               return (
                 <ChatMessage
-                  text={item.text}
-                  user={item.user}
-                  time={item.time}
-                  kind={item.kind}
-                  colour={item.colour}
+                  {...item}
                 />
               );
             })

@@ -65,7 +65,7 @@ export function feeds(state = {}, action) {
   switch (action.type) {
     case NEW_PRIVMSG:
       return append_message(state, action.network_id, action.nick, action.to,
-                            action.text, 'privmsg');
+                            action.text, 'privmsg', true);
     case NEW_ACTION:
       return append_message(state, action.network_id, action.nick, action.to,
                             action.text, 'action');
@@ -219,20 +219,20 @@ function remove_user(state, network_id, nick, channel) {
     return new_obj;
 }
 
-function append_message(state, networkId, nick, to, text, kind) {
+function append_message(state, networkId, nick, to, text, kind, safe = false) {
   // Copy the current state
   let newObj = Object.assign({}, state);
   const channelId = `${networkId}:${to}`;
-  return appendToChannelId(newObj, channelId, nick, to, text, kind);
+  return appendToChannelId(newObj, channelId, nick, to, text, kind, safe);
 }
 
-function appendToChannelId(state, channelId, nick, to, text, kind) {
+function appendToChannelId(state, channelId, nick, to, text, kind, safe) {
   let channelFeed = state[channelId] || [];
   const lastMessage = channelFeed[channelFeed.length - 1];
   if (lastMessage && lastMessage.nick === nick && lastMessage.kind === kind
-      && (kind === 'privmsg' || kind === 'notice')) {
+      && kind === 'privmsg') {
     // "Squash" privmsgs together from the same author.
-    lastMessage.text += `<br>${text}`;
+    lastMessage.text += `${safe?'<br>':''}${text}`;
     lastMessage.time = new Date();
   } else {
     // Different message - create new item
@@ -245,6 +245,7 @@ function appendToChannelId(state, channelId, nick, to, text, kind) {
       text,
       kind,
       colour: `#${md5.digest('hex').substr(0, 6)}`,
+      safe,
       time: new Date()
     };
 

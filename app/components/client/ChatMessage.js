@@ -12,7 +12,7 @@ class ChatMessage extends Component {
   };
 
   render() {
-    const { text, user, time, kind, colour } = this.props;
+    const { text, user, time, kind, colour, safe } = this.props;
     return (
       <span className={`${styles.message} ${styles[kind]}`}>
         <span
@@ -26,12 +26,15 @@ class ChatMessage extends Component {
         <abbr className={styles.time} title={time}>{moment(time).format('LT')}</abbr>
         <div className={styles.main}>
           <span className={styles.username}>{user}</span>
-          <span
-            className={styles.content}
-            dangerouslySetInnerHTML={{
-              __html: text
-            }}
-          />
+          {
+            safe ? <span
+              className={styles.content}
+              dangerouslySetInnerHTML={{
+                __html: text
+              }}
+            /> :
+            <span className={styles.content}>{text}</span>
+          }
         </div>
       </span>
     );

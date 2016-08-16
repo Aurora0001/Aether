@@ -119,7 +119,8 @@ class Client extends Component {
                   text: x.text,
                   time: x.time,
                   colour: x.colour,
-                  kind: x.kind
+                  kind: x.kind,
+                  safe: x.safe
                 };
               })
             }
