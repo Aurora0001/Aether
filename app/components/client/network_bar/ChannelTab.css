@@ -4,7 +4,9 @@ li.channel .button, li.pm .button {
   top: 0;
   right: 0;
   bottom: 0;
-  height: 1.125rem;
+  height: calc(calc(100% - 1rem) + 1px);
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   line-height: 1rem;
   color: rgba(0, 0, 0, 0.4);
   background-color: rgb(255, 255, 255, 0);
@@ -48,7 +50,7 @@ li.channel a, li.special a, li.pm a {
   text-decoration: none;
   color: rgba(0, 0, 0, 0.8);
   position: relative;
-  height: 1.125rem;
+  height: calc(100% - 1.2rem);
 }
 
 li a:hover {

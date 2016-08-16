@@ -44,7 +44,6 @@ export function connect(host, port, ssl, _nick, ident, real, pass, sasl, invalid
       autoConnect: false,
       secure: ssl,
       sasl,
-      debug: true,
       selfSigned: invalid,
       certExpired: invalid,
       channels: defaultChannels

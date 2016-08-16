@@ -9,4 +9,5 @@
   box-sizing: border-box;
   float: left;
   overflow: auto;
+  padding-bottom: 1rem;
 }

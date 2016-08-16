@@ -37,7 +37,8 @@ ul li.user {
 
 ul li.user a {
   display: block;
-  padding: 0.8rem 1rem;
+  padding: 0.6rem 1rem;
+  height: 0.75rem;
   text-decoration: none;
   color: rgba(0, 0, 0, 0.8);
   position: relative;
@@ -49,7 +50,7 @@ span.role {
   top: 0;
   bottom: 0;
   right: 0;
-  padding: 0.8rem 0;
+  padding: 0.6rem 0;
   width: 0.4rem;
   color: rgba(255, 255, 255, 1);
   transition: all 0.1s ease-in-out;
@@ -58,7 +59,7 @@ span.role {
 
 a:hover span.role {
    width: auto;
-   padding: 0.8rem 1rem;
+   padding: 0.6rem 1rem;
  }
 
 a:hover span.role:after {

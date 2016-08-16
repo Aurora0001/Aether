@@ -82,10 +82,10 @@ class EmojiSelector extends Component {
   }
 
   onInput(event) {
-    const elems = this.filterEmojiByName(event.target.value);
+    const elems = this.filterEmojiByName(event.target.value.toLowerCase());
     this.setState({
       emoji: elems,
-      filterString: event.target.value
+      filterString: event.target.value.toLowerCase()
     })
   }
 
