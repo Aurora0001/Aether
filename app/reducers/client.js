@@ -231,6 +231,8 @@ function append_message(state, networkId, nick, to, text, kind, safe = false) {
 }
 
 function appendToChannelId(state, channelId, nick, to, text, kind, safe) {
+  const channelMessages = ['join', 'part', 'quit'];
+
   let channelFeed = state[channelId] || [];
   const lastMessage = channelFeed[channelFeed.length - 1];
   if (lastMessage && lastMessage.nick === nick && lastMessage.kind === kind
@@ -238,6 +240,14 @@ function appendToChannelId(state, channelId, nick, to, text, kind, safe) {
     // "Squash" privmsgs together from the same author.
     lastMessage.text += `${safe?'<br>':''}${text}`;
     lastMessage.time = new Date();
+  } else if (lastMessage && channelMessages.indexOf(lastMessage.kind) !== -1 && channelMessages.indexOf(kind) !== -1) {
+    // "Squash" privmsgs together from the same author.
+    lastMessage[kind].push(nick);
+    const list = squashJoinList(squashChannelMessages(lastMessage.join, 'joined'), squashChannelMessages(lastMessage.part, 'left'), squashChannelMessages(lastMessage.quit, 'quit'));
+    lastMessage.text = `${list}`;
+    lastMessage.time = new Date();
+    lastMessage.nick = to;
+    lastMessage.safe = true;
   } else {
     // Different message - create new item
     const md5 = crypto.createHash('md5');
@@ -253,8 +263,53 @@ function appendToChannelId(state, channelId, nick, to, text, kind, safe) {
       time: new Date()
     };
 
+    if (channelMessages.indexOf(kind) !== -1) {
+      action.quit = [];
+      action.part = [];
+      action.join = [];
+      action[kind].push(nick);
+    }
+
     channelFeed.push(action);
     state[channelId] = channelFeed;
   }
   return state;
+}
+
+
+function squashChannelMessages(list, verb) {
+  if (list.length === 0) {
+    return '';
+  }
+
+  let userMap = {};
+  for (let user of list) {
+    if (userMap.hasOwnProperty(user)) {
+      userMap[user] += 1;
+    } else {
+      userMap[user] = 1;
+    }
+  }
+
+  const displayedUserList = Object.keys(userMap)
+    .map(name => `${name}${userMap[name] > 1 ? ` (${userMap[name]})` : ''}`)
+    .join(', ');
+
+  let word_list;
+  if (list.length <= 3) {
+    word_list = displayedUserList;
+  } else {
+    word_list = `<abbr title="${displayedUserList}">${list.length} users</abbr>`;
+  }
+  return `${word_list} ${verb}`;
+}
+
+function squashJoinList(...args) {
+  let items = [];
+  for (let arg of args) {
+    if (arg !== '') {
+      items.push(arg);
+    }
+  }
+  return items.join(', ');
 }

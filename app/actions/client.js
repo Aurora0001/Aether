@@ -3,6 +3,7 @@ import marked from 'marked';
 import twemoji from 'twemoji';
 const twemojiImages = require.context('file!../static/72x72', true, /\.png$/);
 import { VERSION, NAME } from '../APP_INFORMATION.js';
+import { pluginMiddleware } from '../store/pluginMiddleware.js';
 
 const renderer = new marked.Renderer();
 renderer.paragraph = (text) => text;
@@ -49,6 +50,7 @@ export const NEW_SELF_PRIVMSG = 'NEW_SELF_PRIVMSG';
 export const JOIN_PRIVMSG = 'JOIN_PRIVMSG';
 export const SEND_CTCP = 'SEND_CTCP';
 export const RECEIVE_CTCP = 'RECEIVE_CTCP';
+export const WILL_SEND_PRIVMSG = 'WILL_SEND_PRIVMSG';
 
 // If any of these modes are seen, we need to refresh the names list.
 const DISPLAY_MODES = ['q', 'a', 'o', 'h', 'v'];
@@ -279,8 +281,11 @@ export function send_part_channel(channel, networkId) {
 export function send_privmsg(channel, text, networkId) {
   return (dispatch, getState) => {
     const client = getState().clients[networkId];
-    console.log(client.nick);
-    client.say(channel, text);
+    const message = pluginMiddleware(null)((action) => action)({
+      type: WILL_SEND_PRIVMSG,
+      text
+    }).text;
+    client.say(channel, message);
     dispatch(new_privmsg(client.nick, channel, text, networkId));
   };
 }

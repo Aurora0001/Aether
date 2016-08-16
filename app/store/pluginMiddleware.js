@@ -17,11 +17,11 @@ export function registerHook(actionName, fn) {
 }
 
 export const pluginMiddleware = (store) => (next) => (action) => {
-  let result = next(action);
   const hooks = pluginHooks[action.type] || [];
   for (const hook of hooks) {
     hook(action);
   }
+  let result = next(action);
   return result;
 }
 

@@ -33,8 +33,12 @@ class ChatBar extends Component {
         const suggestions = this.props.users
           .filter(user => user.name.startsWith(lastWord));
         if (suggestions[0]) {
+          let word = suggestions[0].name;
+          if (words.length === 1) {
+            word += ',';
+          }
           words.pop();
-          words.push(suggestions[0].name);
+          words.push(word);
           this.setState({
             text: words.join(' ')
           });
