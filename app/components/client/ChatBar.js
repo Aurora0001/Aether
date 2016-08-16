@@ -28,7 +28,7 @@ class ChatBar extends Component {
     if (event.keyCode === 9) {
       event.preventDefault();
       let words = this.state.text.split(' ');
-      if (words.length >= 1) {
+      if (words.length >= 1 && words[words.length - 1] !== '') {
         const lastWord = words[words.length - 1];
         const suggestions = this.props.users
           .filter(user => user.name.startsWith(lastWord));
@@ -36,9 +36,7 @@ class ChatBar extends Component {
           words.pop();
           words.push(suggestions[0].name);
           this.setState({
-            text: words.join(' '),
-            hidden: this.state.hidden,
-            emoji: this.state.emoji
+            text: words.join(' ')
           });
         }
       }
