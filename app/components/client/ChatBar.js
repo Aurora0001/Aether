@@ -79,7 +79,7 @@ class ChatBar extends Component {
           onChange={this.inputChange}
           onKeyDown={this.keyPress}
           value={this.state.text}
-          spellcheck="true"
+          spellCheck="true"
         />
         <a className={styles.emoji_add} onClick={this.toggleEmoji}>
           <i className="material-icons">

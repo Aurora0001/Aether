@@ -34,7 +34,44 @@ class Client extends Component {
     const actionHandlers = {
       ME: (message, channel) => this.props.send_action(channel.name, message.slice(1).join(' '), channel.network_id),
       MSG: (message, channel) => this.props.send_privmsg(message[1], message.slice(2).join(' '), channel.network_id),
-      CTCP: (message, channel) => this.props.sendCtcp(message[1], 'privmsg', message.slice(2).join(' '), channel.network_id)
+      CTCP: (message, channel) => this.props.sendCtcp(message[1], 'privmsg', message.slice(2).join(' '), channel.network_id),
+      PART: (message, channel) => {
+        if (message.length === 1) {
+          this.props.send_part_channel(channel.name, channel.network_id);
+        } else {
+          for (let _channel of message.slice(1)) {
+            this.props.send_part_channel(_channel.name, _channel.network_id);
+          }
+        }
+      },
+      KICK: (message, channel) => {
+        if (message[1].startsWith('#')) {
+          for (let user of message.slice(2)) {
+            this.props.send_raw('KICK', [message[1], user], channel.network_id);
+          }
+        } else {
+          for (let user of message.slice(1)) {
+            this.props.send_raw('KICK', [channel.name, user], channel.network_id);
+          }
+        }
+      },
+      BAN: (message, channel) => {
+        for (let user of message.slice(1)) {
+          this.props.send_raw('MODE', [channel.name, '+b', user], channel.network_id);
+        }
+      },
+      UNBAN: (message, channel) => {
+        for (let user of message.slice(1)) {
+          this.props.send_raw('MODE', [channel.name, '-b',  `${user}!*@*`], channel.network_id);
+        }
+      },
+      MODE: (message, channel) => {
+        if (message[1].startsWith('#')) {
+          this.props.send_raw('MODE', message.slice(1), channel.network_id);
+        } else {
+          this.props.send_raw('MODE', [channel.name, ...message.slice(1)], channel.network_id);
+        }
+      }
     };
 
 

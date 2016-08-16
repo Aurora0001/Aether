@@ -6,7 +6,9 @@ import { NEW_PRIVMSG, NEW_SELF_PRIVMSG } from '../actions/client.js';
 const renderer = new marked.Renderer();
 renderer.paragraph = (text) => text;
 renderer.link = (href, title, text) =>
-  `<a target="_blank" href="${href}" title="${title}">${text}</a>`;
+  `<a target="_blank" href="${href}" title="${title}">
+    ${text}
+   </a>`;
 
 renderer.image = (href, title, text) => `![${text}](${href})`;
 
@@ -20,6 +22,7 @@ marked.setOptions({
   smartLists: false,
   smartypants: false
 });
+
 
 export const markupMiddleware = (store) => (next) => (action) => {
   if (action.type === NEW_PRIVMSG || action.type === NEW_SELF_PRIVMSG) {
