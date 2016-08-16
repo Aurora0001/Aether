@@ -32,8 +32,9 @@ class Client extends Component {
             = this.props;
 
     const actionHandlers = {
-      ME: (message, channel) => this.props.send_action(channel.name, message.slice(1).join(" "), channel.network_id),
-      MSG: (message, channel) => this.props.send_privmsg(message[1], message.slice(2).join(" "), channel.network_id),
+      ME: (message, channel) => this.props.send_action(channel.name, message.slice(1).join(' '), channel.network_id),
+      MSG: (message, channel) => this.props.send_privmsg(message[1], message.slice(2).join(' '), channel.network_id),
+      CTCP: (message, channel) => this.props.sendCtcp(message[1], 'privmsg', message.slice(2).join(' '), channel.network_id)
     };
 
 

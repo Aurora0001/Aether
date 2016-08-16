@@ -47,6 +47,8 @@ export const USER_KILLED = 'USER_KILLED';
 export const SERVER_ERROR = 'SERVER_ERROR';
 export const NEW_SELF_PRIVMSG = 'NEW_SELF_PRIVMSG';
 export const JOIN_PRIVMSG = 'JOIN_PRIVMSG';
+export const SEND_CTCP = 'SEND_CTCP';
+export const RECEIVE_CTCP = 'RECEIVE_CTCP';
 
 // If any of these modes are seen, we need to refresh the names list.
 const DISPLAY_MODES = ['q', 'a', 'o', 'h', 'v'];
@@ -104,6 +106,10 @@ export function connect(host, port, ssl, _nick, ident, real, pass, sasl, invalid
       const notification = new Notification(`${nick} sent a PM:`, {
         body: text
       });
+    });
+
+    client.addListener('ctcp', (from, to, text, type, message) => {
+      dispatch(receiveCtcp(from, to, text, type, getState().current_channel || networkId, networkId));
     });
 
     client.addListener('action', (nick, to, text, message) => {
@@ -192,6 +198,34 @@ export function connect(host, port, ssl, _nick, ident, real, pass, sasl, invalid
           : 'The server closed the connection', networkId));
       });
     });
+  };
+}
+
+function receiveCtcp(from, to, text, type, destChannel, networkId) {
+  return {
+    type: RECEIVE_CTCP,
+    from,
+    to,
+    text,
+    ctcpType: type,
+    destChannel,
+    network_id: networkId
+  };
+}
+
+export function sendCtcp(target, type, text, networkId) {
+  return (dispatch, getState) => {
+    const client = getState().clients[networkId];
+    if (client) {
+      client.ctcp(target, type, text);
+      return {
+        type: SEND_CTCP,
+        target,
+        ctcpType: type,
+        text,
+        networkId
+      };
+    }
   };
 }
 

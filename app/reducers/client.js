@@ -2,7 +2,7 @@ import crypto from 'crypto';
 import { NEW_PRIVMSG, NEW_ACTION, JOIN_CHANNEL, PART_CHANNEL, KICK_CHANNEL,
          NEW_NOTICE, ADD_MODE, REMOVE_MODE, USER_QUIT, CONNECTED, RECEIVE_NAMES,
          NICK_CHANGE, SET_TOPIC, USER_KILLED, DISCONNECTED, SERVER_ERROR,
-         NEW_SELF_PRIVMSG, REMOVE_CHANNEL, JOIN_PRIVMSG
+         NEW_SELF_PRIVMSG, REMOVE_CHANNEL, JOIN_PRIVMSG, RECEIVE_CTCP
        } from '../actions/client';
 
 export function clients(state = {}, action) {
@@ -83,6 +83,10 @@ export function feeds(state = {}, action) {
       let newObj = Object.assign({}, state);
       return appendToChannelId(newObj, action.destChannel, action.sender,
                                action.to, action.text, 'notice');
+    case RECEIVE_CTCP:
+      let newState = Object.assign({}, state);
+      return appendToChannelId(newState, action.destChannel, action.from,
+                               action.to, `CTCP (${action.ctcpType}) ${action.text}`, 'ctcp');
     case ADD_MODE:
       return append_message(state, action.network_id, action.by, action.channel,
                             `added mode +${action.mode} ${action.argument}`,

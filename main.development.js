@@ -1,7 +1,5 @@
 import { app, BrowserWindow, Menu, shell } from 'electron';
-
 let mainWindow = null;
-
 
 if (process.env.NODE_ENV === 'development') {
   require('electron-debug')(); // eslint-disable-line global-require
