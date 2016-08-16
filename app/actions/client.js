@@ -1,27 +1,6 @@
 import irc from 'irc';
-import marked from 'marked';
-import twemoji from 'twemoji';
-const twemojiImages = require.context('file!../static/72x72', true, /\.png$/);
 import { VERSION, NAME } from '../APP_INFORMATION.js';
 import { pluginMiddleware } from '../store/pluginMiddleware.js';
-
-const renderer = new marked.Renderer();
-renderer.paragraph = (text) => text;
-renderer.link = (href, title, text) =>
-  `<a target="_blank" href="${href}" title="${title}">${text}</a>`;
-
-renderer.image = (href, title, text) => `![${text}](${href})`;
-
-marked.setOptions({
-  renderer,
-  gfm: true,
-  tables: false,
-  breaks: false,
-  pedantic: false,
-  sanitize: true,
-  smartLists: false,
-  smartypants: false
-});
 
 export const CONNECT_BEGIN = 'CONNECT_BEGIN';
 export const DISCONNECT_BEGIN = 'DISCONNECT_BEGIN';
@@ -423,15 +402,11 @@ function part_channel(channel, nick, reason, self, networkId) {
 }
 
 function new_privmsg(nick, to, text, networkId) {
-  const marked_text = marked(text);
-  let final_text = twemoji.parse(marked_text, (icon, options) => {
-    return twemojiImages('./' + icon + '.png');
-  });
   return {
     type: NEW_PRIVMSG,
     nick,
     to,
-    text: final_text,
+    text,
     network_id: networkId
   };
 }
@@ -440,7 +415,7 @@ function newSelfPrivmsg(nick, text, networkId) {
   return {
     type: NEW_SELF_PRIVMSG,
     nick,
-    text: marked(text),
+    text,
     network_id: networkId
   };
 }
