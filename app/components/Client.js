@@ -69,6 +69,13 @@ class Client extends Component {
         } else {
           this.props.send_raw('MODE', [channel.name, ...message.slice(1)], channel.network_id);
         }
+      },
+      TOPIC: (message, channel) => {
+        if (message[1].startsWith('#')) {
+          this.props.send_raw('TOPIC', message.slice(1), channel.network_id);
+        } else {
+          this.props.send_raw('TOPIC', [channel.name, ...message.slice(1)], channel.network_id);
+        }
       }
     };
 
