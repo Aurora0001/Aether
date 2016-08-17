@@ -116,6 +116,7 @@ class Client extends Component {
                   name={network.name}
                   port={network.port}
                   ssl={network.ssl}
+                  joinChannel={(channel) => this.props.send_join_channel(channel, network_id)}
                   channels={
                     Object.keys(channels).map(id => {
                       if (channels[id].network_id === network_id) {

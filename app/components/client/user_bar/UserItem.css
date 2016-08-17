@@ -6,6 +6,10 @@ span.user_opts a {
   padding-right: 0.4rem;
   text-align: center;
   font-size: 0.8rem;
+  height: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 span.user_opts a:hover {

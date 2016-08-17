@@ -42,3 +42,15 @@ a.network_icon:hover {
   color: #eeeeee;
   cursor: pointer;
 }
+
+input.channelInput {
+  width: calc(calc(100% - 2rem) - 5px);
+  margin: 0 1rem;
+  height: 1.5rem;
+  border: 0;
+}
+
+input.channelInput:focus {
+  border: 0;
+  outline: 0;
+}

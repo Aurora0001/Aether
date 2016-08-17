@@ -15,8 +15,15 @@ class NetworkTab extends Component {
     joinChannel: PropTypes.func.isRequired
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      joinChannel: false
+    };
+  }
+
   render() {
-    const { host, port, channels, name, show, fold, expand } = this.props;
+    const { host, port, channels, name, show, fold, expand, joinChannel } = this.props;
     const networkId = `${host}:${port}`;
 
     return (
@@ -62,9 +69,22 @@ class NetworkTab extends Component {
                 counter={-1}
                 name="Join Channel"
                 type="special"
-                callback={() => 0}
+                callback={() => this.setState({joinChannel: !this.state.joinChannel})}
                 close_callback={() => 0}
               />
+            : null
+          }
+          {
+            this.state.joinChannel && show ?
+              <form onSubmit={(event) => {
+                event.preventDefault();
+                joinChannel(event.target.channel.value);
+                this.setState({
+                  joinChannel: false
+                });
+              }}>
+                <input name="channel" type="text" className={styles.channelInput} placeholder="Press Enter to join channel." />
+              </form>
             : null
           }
         </ul>
