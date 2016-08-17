@@ -53,13 +53,18 @@ li.channel a, li.special a, li.pm a {
   height: calc(100% - 1.2rem);
 }
 
-li a.channel_name {
+li.channel a.channel_name, li.pm a.channel_name {
   width: 8rem;
   word-wrap: break-word;
 }
 
-li a:hover {
+li:not(.selected):hover {
   background-color: rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+}
+
+li.selected:hover {
+  background-color: rgba(33, 133, 208, 0.6);
   cursor: pointer;
 }
 
