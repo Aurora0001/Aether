@@ -35,6 +35,9 @@ export function loadPlugins(store) {
       client: clientActions,
       ui: uiActions
     });
+
+    plugin.getSettings = () => store.getState().pluginSettings[plugin.uuid];
+
     store.dispatch(uiActions.addPlugin(plugin));
     console.log(`Loaded ${plugin.name} v${plugin.version.join('.')} [${plugin.uuid}]`);
   });

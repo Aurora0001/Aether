@@ -138,7 +138,7 @@ export function pluginSettings(state = {}, action) {
         return state;
       }
       const newObj = Object.assign({}, state);
-      newObj[action.uuid] = action.plugin.defaultSettings;
+      newObj[action.plugin.uuid] = action.plugin.defaultSettings;
       return newObj;
     case SET_PLUGIN_SETTINGS:
       const newSettings = Object.assign({}, state);

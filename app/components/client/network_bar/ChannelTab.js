@@ -16,7 +16,7 @@ class ChannelTab extends Component {
     const { name, type, callback, close_callback, counter,
             selected } = this.props;
     return (
-      <li className={`${selected?styles.selected:null} ${styles[type]}`}>
+      <li className={`${styles.item} ${selected?styles.selected:null} ${styles[type]}`}>
         <a onClick={callback} className={styles.channel_name}>
           <span className={styles.icon} />
           {name}

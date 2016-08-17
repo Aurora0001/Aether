@@ -90,7 +90,9 @@ export function connect(host, port, ssl, _nick, ident, real, pass, sasl, invalid
     });
 
     client.addListener('ctcp', (from, to, text, type, message) => {
-      dispatch(receiveCtcp(from, to, text, type, getState().current_channel || networkId, networkId));
+      if (!message.startsWith('ACTION')) {
+        dispatch(receiveCtcp(from, to, text, type, getState().current_channel || networkId, networkId));
+      }
     });
 
     client.addListener('action', (nick, to, text, message) => {
@@ -276,7 +278,11 @@ export function send_privmsg(channel, text, networkId) {
 export function send_action(channel, text, networkId) {
   return (dispatch, getState) => {
     const client = getState().clients[networkId];
-    client.action(channel, text);
+    const message = pluginMiddleware(null)((action) => action)({
+      type: WILL_SEND_PRIVMSG,
+      text
+    }).text;
+    client.action(channel, message);
     dispatch(new_action(client.nick, channel, text, networkId));
   };
 }

@@ -58,7 +58,7 @@ li.channel a.channel_name, li.pm a.channel_name {
   word-wrap: break-word;
 }
 
-li:not(.selected):hover {
+li.item:not(.selected):hover {
   background-color: rgba(0, 0, 0, 0.05);
   cursor: pointer;
 }
