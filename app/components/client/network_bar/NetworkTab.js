@@ -36,7 +36,15 @@ class NetworkTab extends Component {
         }
         <ul className={styles.channel_list}>
           {
-            show && channels.map(item => {
+            show && channels.sort((a, b) => {
+              if (a.name[0] === '#' && b.name[0] !== '#') {
+                return -1;
+              } else if (a.name[0] !== '#' && b.name[0] === '#') {
+                return 1;
+              } else {
+                return a.name > b.name ? 1 : -1;
+              }
+            }).map(item => {
               if (item) {
                 return (
                   <ChannelTab

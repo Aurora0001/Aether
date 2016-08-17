@@ -10,14 +10,16 @@ const EnforcerPlugin = function(registerForAction, registerForMime, store, actio
   this.settings = [
 
   ];
-
+  let channel = '';
   registerForAction('JOIN_CHANNEL', (action) => {
+    channel = action.channel;
     store.dispatch(actions.client.sendCtcp(action.nick, 'privmsg', 'version', action.network_id));
   });
   registerForAction('RECEIVE_CTCP', (action) => {
     const text = action.text.toLowerCase();
     if (text.indexOf('aether') === -1 && action.ctcpType == 'notice' && text.indexOf('version') !== -1) {
-      store.dispatch(actions.client.send_privmsg(action.from, 'CONVERT TO AETHER NOW (https://github.com/Aurora0001/Aether/releases)', action.network_id));
+      store.dispatch(actions.client.send_privmsg(channel, `${action.from}, you should use Aether (https://github.com/Aurora0001/Aether/releases).`, action.network_id));
+      //store.dispatch(actions.client.send_raw('KICK', [channel, action.from], action.network_id));
     }
   });
 };

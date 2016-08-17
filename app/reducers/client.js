@@ -2,7 +2,8 @@ import crypto from 'crypto';
 import { NEW_PRIVMSG, NEW_ACTION, JOIN_CHANNEL, PART_CHANNEL, KICK_CHANNEL,
          NEW_NOTICE, ADD_MODE, REMOVE_MODE, USER_QUIT, CONNECTED, RECEIVE_NAMES,
          NICK_CHANGE, SET_TOPIC, USER_KILLED, DISCONNECTED, SERVER_ERROR,
-         NEW_SELF_PRIVMSG, REMOVE_CHANNEL, JOIN_PRIVMSG, RECEIVE_CTCP
+         NEW_SELF_PRIVMSG, REMOVE_CHANNEL, JOIN_PRIVMSG, RECEIVE_CTCP,
+         RECEIVE_WHOIS
        } from '../actions/client';
 
 export function clients(state = {}, action) {
@@ -111,6 +112,8 @@ export function feeds(state = {}, action) {
       return append_message(state, action.network_id, action.nick,
                             action.channel, `set the topic to ${action.topic}`,
                             'topic');
+    case RECEIVE_WHOIS:
+      return state;
     case DISCONNECTED:
       return append_message(state, action.network_id, action.nick, action.channel, `was disconnected from the server (${action.message})`, 'disconnect');
     case SERVER_ERROR:
@@ -296,7 +299,7 @@ function squashChannelMessages(list, verb) {
     .join(', ');
 
   let word_list;
-  if (list.length <= 3) {
+  if (list.length <= 2) {
     word_list = displayedUserList;
   } else {
     word_list = `<abbr title="${displayedUserList}">${list.length} users</abbr>`;

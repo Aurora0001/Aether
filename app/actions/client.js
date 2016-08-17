@@ -30,6 +30,7 @@ export const JOIN_PRIVMSG = 'JOIN_PRIVMSG';
 export const SEND_CTCP = 'SEND_CTCP';
 export const RECEIVE_CTCP = 'RECEIVE_CTCP';
 export const WILL_SEND_PRIVMSG = 'WILL_SEND_PRIVMSG';
+export const RECEIVE_WHOIS = 'RECEIVE_WHOIS';
 
 // If any of these modes are seen, we need to refresh the names list.
 const DISPLAY_MODES = ['q', 'a', 'o', 'h', 'v'];
@@ -171,6 +172,10 @@ export function connect(host, port, ssl, _nick, ident, real, pass, sasl, invalid
       });
     });
 
+    client.addListener('whois', (info) => {
+      dispatch(receiveWhois(info, getState().current_channel || networkId, networkId));
+    });
+
     client.conn.addListener('close', (err) => {
       Object.keys(client.chans).forEach(channel => {
         dispatch(disconnected(client.nick, channel,
@@ -291,6 +296,15 @@ export function remove_channel(channel, networkId) {
     network_id: networkId,
     self: true
   };
+}
+
+function receiveWhois(info, destChannel, networkId) {
+  return {
+    type: RECEIVE_WHOIS,
+    info,
+    destChannel,
+    network_id: networkId
+  }
 }
 
 function set_topic(channel, topic, nick, networkId) {

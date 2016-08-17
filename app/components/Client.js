@@ -13,15 +13,13 @@ class Client extends Component {
   };
 
   componentWillMount() {
-    this.props.networks.forEach(network => {
-      this.props.create_network_tab(`${network.host}:${network.port}`);
-      this.props.connect(network.host, network.port, network.ssl, network.nick, network.ident, network.real,
-        network.password, network.sasl, network.invalid, network.default_channels);
-    });
-  }
-
-  componentWillUnmount() {
-    this.props.disconnect(this.props.channels[this.props.current_channel].network_id);
+    if (Object.keys(this.props.clients).length === 0) {
+      this.props.networks.forEach(network => {
+        this.props.create_network_tab(`${network.host}:${network.port}`);
+        this.props.connect(network.host, network.port, network.ssl, network.nick, network.ident, network.real,
+          network.password, network.sasl, network.invalid, network.default_channels);
+      });
+    }
   }
 
   render() {

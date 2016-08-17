@@ -10,9 +10,6 @@ export default {
       test: /\.ttf?$/,
       loaders: ['file-loader']
     }, {
-      test: /\.ttf?$/,
-      loaders: ['file-loader']
-    }, {
       test: /\.woff?$/,
       loaders: ['file-loader']
     }, {

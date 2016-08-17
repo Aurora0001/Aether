@@ -9,6 +9,7 @@ function mapStateToProps(state) {
     feeds: state.feeds,
     users: state.users,
     channels: state.channels,
+    clients: state.clients,
     networks: state.networks,
     current_channel: state.current_channel,
     network_states: state.network_states,
