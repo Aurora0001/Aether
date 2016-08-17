@@ -90,7 +90,7 @@ export function connect(host, port, ssl, _nick, ident, real, pass, sasl, invalid
     });
 
     client.addListener('ctcp', (from, to, text, type, message) => {
-      if (!message.startsWith('ACTION')) {
+      if (!text.startsWith('ACTION')) {
         dispatch(receiveCtcp(from, to, text, type, getState().current_channel || networkId, networkId));
       }
     });
