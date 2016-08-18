@@ -1,7 +1,7 @@
 import marked from 'marked';
 import twemoji from 'twemoji';
 const twemojiImages = require.context('file!../static/72x72', true, /\.png$/);
-import { NEW_PRIVMSG, NEW_SELF_PRIVMSG } from '../actions/client.js';
+import { NEW_PRIVMSG, NEW_SELF_PRIVMSG, NEW_ACTION } from '../actions/client.js';
 
 const renderer = new marked.Renderer();
 renderer.paragraph = (text) => text;
@@ -25,7 +25,8 @@ marked.setOptions({
 
 
 export const markupMiddleware = (store) => (next) => (action) => {
-  if (action.type === NEW_PRIVMSG || action.type === NEW_SELF_PRIVMSG) {
+  if (action.type === NEW_PRIVMSG || action.type === NEW_SELF_PRIVMSG
+      || action.type === NEW_ACTION) {
     const marked_text = marked(action.text);
     const final_text = twemoji.parse(marked_text, (icon, options) => {
       return twemojiImages('./' + icon + '.png');

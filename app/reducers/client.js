@@ -19,6 +19,15 @@ export function clients(state = {}, action) {
 
 export function channels(state = {}, action) {
   switch (action.type) {
+    case CONNECTED:
+      const newObj = Object.assign({}, state);
+      newObj[action.network_id] = {
+        name: action.network_id,
+        type: 'network',
+        topic: `Status for ${action.network_id}`,
+        network_id: action.network_id
+      };
+      return newObj;
     case JOIN_CHANNEL:
       if (!action.self) {
         return state;
@@ -69,7 +78,7 @@ export function feeds(state = {}, action) {
                             action.text, 'privmsg', true);
     case NEW_ACTION:
       return append_message(state, action.network_id, action.nick, action.to,
-                            action.text, 'action');
+                            action.text, 'action', true);
     case JOIN_CHANNEL:
       return append_message(state, action.network_id, action.nick,
                             action.channel, `joined ${action.channel}`, 'join');

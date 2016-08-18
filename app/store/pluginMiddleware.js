@@ -3,6 +3,7 @@ import requireAll from 'require-all';
 
 import * as clientActions from '../actions/client.js';
 import * as uiActions from '../actions/ui.js';
+import { VERSION } from '../APP_INFORMATION.js';
 
 const PLUGIN_DIR = path.resolve('.', 'plugins');
 
@@ -37,6 +38,7 @@ export function loadPlugins(store) {
     });
 
     plugin.getSettings = () => store.getState().pluginSettings[plugin.uuid];
+    plugin.clientVersion = VERSION;
 
     store.dispatch(uiActions.addPlugin(plugin));
     console.log(`Loaded ${plugin.name} v${plugin.version.join('.')} [${plugin.uuid}]`);

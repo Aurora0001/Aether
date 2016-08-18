@@ -420,7 +420,7 @@ function part_channel(channel, nick, reason, self, networkId) {
   };
 }
 
-function new_privmsg(nick, to, text, networkId) {
+export function new_privmsg(nick, to, text, networkId) {
   return {
     type: NEW_PRIVMSG,
     nick,

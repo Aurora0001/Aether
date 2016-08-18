@@ -14,7 +14,7 @@ div.network {
   height: auto;
 }
 
-span.network_text {
+a.network_text {
   background: #efefef;
   display: block;
   padding: 0.5rem 1rem;
@@ -24,6 +24,11 @@ span.network_text {
   position: relative;
   height: 1.125rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+a.network_text:hover {
+  background: #eaeaea;
+  cursor: pointer;
 }
 
 a.network_icon {

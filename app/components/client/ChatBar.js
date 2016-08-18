@@ -35,7 +35,7 @@ class ChatBar extends Component {
         if (suggestions[0]) {
           let word = suggestions[0].name;
           if (words.length === 1) {
-            word += ',';
+            word += ', ';
           }
           words.pop();
           words.push(word);

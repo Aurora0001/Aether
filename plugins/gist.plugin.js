@@ -2,7 +2,7 @@ const https = require('https');
 
 const GistPlugin = function(registerForAction, registerMime, store, actions) {
   this.name = 'Gist Uploader';
-  this.author = 'IRC Client';
+  this.author = 'Aether Developers';
   this.description = 'Uploads files to GitHub Gist that have been dragged into the client.';
   this.version = [0, 1, 0];
   this.uuid = '835aa140-f183-4481-bead-7790cc2c12bc';
@@ -32,7 +32,7 @@ GistPlugin.prototype.onDrop = (action, store, actions) => {
     headers: {
       'Content-Type': 'application/json',
       'Content-Length': Buffer.byteLength(json_body),
-      'User-Agent': 'IRC Client Gist Plugin v0.1.0'
+      'User-Agent': 'Aether Gist Plugin v0.1.0'
     }
   };
 

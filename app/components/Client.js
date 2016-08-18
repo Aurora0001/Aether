@@ -123,10 +123,11 @@ class Client extends Component {
                   name={network.name}
                   port={network.port}
                   ssl={network.ssl}
+                  viewNetwork={() => change_current_channel(network_id)}
                   joinChannel={(channel) => this.props.send_join_channel(channel, network_id)}
                   channels={
                     Object.keys(channels).map(id => {
-                      if (channels[id].network_id === network_id) {
+                      if (channels[id].network_id === network_id && channels[id].type !== 'network') {
                         return {
                           type: channels[id].type,
                           name: channels[id].name,
@@ -146,7 +147,7 @@ class Client extends Component {
                         };
                       }
                       return null;
-                    })
+                    }).filter(x => x !== null)
                   }
                 />
               );

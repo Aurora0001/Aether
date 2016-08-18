@@ -12,7 +12,8 @@ class NetworkTab extends Component {
     show: PropTypes.bool.isRequired,
     fold: PropTypes.func.isRequired,
     expand: PropTypes.func.isRequired,
-    joinChannel: PropTypes.func.isRequired
+    joinChannel: PropTypes.func.isRequired,
+    viewNetwork: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -23,14 +24,14 @@ class NetworkTab extends Component {
   }
 
   render() {
-    const { host, port, channels, name, show, fold, expand, joinChannel } = this.props;
+    const { host, port, channels, name, show, fold, expand, joinChannel, viewNetwork } = this.props;
     const networkId = `${host}:${port}`;
 
     return (
       <div className={styles.network}>
-        <span className={styles.network_text}>
+        <a className={styles.network_text} onClick={viewNetwork}>
           {name}
-        </span>
+        </a>
         {
           show ?
             <a className={styles.network_icon} onClick={() => fold(networkId)}>

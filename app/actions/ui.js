@@ -62,10 +62,17 @@ export function droppedFile(mime, file, contents, channel, networkId) {
 }
 
 export function change_current_channel(networkId, new_channel) {
-  return {
-    type: CHANGE_CURRENT_CHANNEL,
-    new_channel: `${networkId}:${new_channel}`
-  };
+  if (new_channel) {
+    return {
+      type: CHANGE_CURRENT_CHANNEL,
+      new_channel: `${networkId}:${new_channel}`
+    };
+  } else {
+    return {
+      type: CHANGE_CURRENT_CHANNEL,
+      new_channel: `${networkId}`
+    };
+  }
 }
 
 export function fold_network_tab(networkId) {
