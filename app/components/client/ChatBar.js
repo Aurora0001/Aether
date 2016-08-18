@@ -75,10 +75,11 @@ class ChatBar extends Component {
       <div className={styles.chat_bar}>
         <input
           type="text"
-          placeholder="Write your message here, and press Enter to send. Markdown is supported."
+          placeholder={this.props.dropProgress || "Write your message here, and press Enter to send. Markdown is supported."}
           onChange={this.inputChange}
           onKeyDown={this.keyPress}
           value={this.state.text}
+          disabled={this.props.dropProgress !== null}
           spellCheck="true"
         />
         <a className={styles.emoji_add} onClick={this.toggleEmoji}>

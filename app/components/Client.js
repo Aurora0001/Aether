@@ -112,6 +112,10 @@ class Client extends Component {
           {
             Object.keys(channels).filter(x => channels[x].type === 'network').map(chan => {
               const network = networks.filter(x => `${x.host}:${x.port}` === channels[chan].network_id)[0];
+              if (!network) {
+                return null;
+              }
+
               const network_id = `${network.host}:${network.port}`;
               return (
                 <NetworkTab
@@ -194,6 +198,7 @@ class Client extends Component {
                 }
               }
             }
+            dropProgress={this.props.dropProgress}
           />
         </div>
         <UserBar

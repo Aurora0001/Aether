@@ -13,7 +13,8 @@ function mapStateToProps(state) {
     networks: state.networks,
     current_channel: state.current_channel,
     network_states: state.network_states,
-    counter: state.channel_counter
+    counter: state.channel_counter,
+    dropProgress: state.dropProgress
   };
 }
 

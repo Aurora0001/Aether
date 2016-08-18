@@ -1,9 +1,21 @@
 import { CHANGE_CURRENT_CHANNEL, CREATE_NETWORK_TAB, FOLD_NETWORK_TAB,
          EXPAND_NETWORK_TAB, ADD_NETWORK, REMOVE_NETWORK,
-         ADD_PLUGIN, SET_PLUGIN_SETTINGS, REGISTER_HANDLER
+         ADD_PLUGIN, SET_PLUGIN_SETTINGS, REGISTER_HANDLER, SHOW_DROP_PROGRESS,
+         HIDE_DROP_PROGRESS
        } from '../actions/ui.js';
 import { CONNECTED, NEW_PRIVMSG, NEW_ACTION, NICK_CHANGE }
       from '../actions/client.js';
+
+export function dropProgress(state = null, action) {
+  switch (action.type) {
+    case SHOW_DROP_PROGRESS:
+      return action.text;
+    case HIDE_DROP_PROGRESS:
+      return null;
+    default:
+      return state;
+  }
+}
 
 export function current_channel(state = '', action) {
   switch (action.type) {
@@ -153,7 +165,11 @@ export function dragDropHandlers(state = {}, action) {
   switch (action.type) {
     case REGISTER_HANDLER:
       const newObj = Object.assign({}, state);
-      newObj[action.mime] = action.handler;
+      newObj[action.mime] = {
+        handler: action.handler,
+        requestText: action.requestText,
+        progressText: action.progressText
+      };
       return newObj;
     default:
       return state;

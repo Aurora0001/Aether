@@ -13,7 +13,8 @@ class ChatBox extends Component {
     messages: PropTypes.array.isRequred,
     users: PropTypes.array.isRequred,
     callback: PropTypes.func.isRequired,
-    dropCallback: PropTypes.func.isRequired
+    dropCallback: PropTypes.func.isRequired,
+    dropProgress: PropTypes.string.isRequired
   };
 
   constructor(props) {
@@ -82,7 +83,7 @@ class ChatBox extends Component {
             })
           }
         </div>
-        <ChatBar callback={callback} users={users}/>
+        <ChatBar dropProgress={this.props.dropProgress} callback={callback} users={users}/>
       </div>
     );
   }

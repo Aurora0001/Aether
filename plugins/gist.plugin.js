@@ -10,47 +10,55 @@ const GistPlugin = function(registerForAction, registerMime, store, actions) {
   this.settings = [
 
   ];
-  registerMime('', (action) => this.onDrop(action, store, actions));
+  registerMime('', {
+    handler: (action) => this.onDrop(action, store, actions),
+    requestText: 'Upload to Gist?',
+    progressText: 'Uploading file to GitHub Gist...'
+  });
 };
 
 GistPlugin.prototype.onDrop = (action, store, actions) => {
-  const body = {
-    "description": "Uploaded by IRC Client",
-    "public": true,
-    "files": {}
-  };
-  body.files[action.file.name] = {
-    content: action.contents
-  };
-  const json_body = JSON.stringify(body);
+  return new Promise((resolve, reject) => {
 
-  const options = {
-    hostname: 'api.github.com',
-    port: 443,
-    path: '/gists',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Content-Length': Buffer.byteLength(json_body),
-      'User-Agent': 'Aether Gist Plugin v0.1.0'
-    }
-  };
+    const body = {
+      "description": "Uploaded by IRC Client",
+      "public": true,
+      "files": {}
+    };
+    body.files[action.file.name] = {
+      content: action.contents
+    };
+    const json_body = JSON.stringify(body);
 
-  const post_req = https.request(options, (result) => {
-    let body = '';
-    result.setEncoding('utf8');
-    result.on('data', (chunk) => {
-      body += chunk;
+    const options = {
+      hostname: 'api.github.com',
+      port: 443,
+      path: '/gists',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(json_body),
+        'User-Agent': 'Aether Gist Plugin v0.1.0'
+      }
+    };
+
+    const post_req = https.request(options, (result) => {
+      let body = '';
+      result.setEncoding('utf8');
+      result.on('data', (chunk) => {
+        body += chunk;
+      });
+
+      result.on('end', () => {
+        const data = JSON.parse(body);
+        store.dispatch(actions.client.send_privmsg(action.channel, data.html_url, action.network_id));
+        resolve();
+      });
     });
 
-    result.on('end', () => {
-      const data = JSON.parse(body);
-      store.dispatch(actions.client.send_privmsg(action.channel, data.html_url, action.network_id));
-    });
+    post_req.write(json_body);
+    post_req.end();
   });
-
-  post_req.write(json_body);
-  post_req.end();
 };
 
 module.exports = GistPlugin;

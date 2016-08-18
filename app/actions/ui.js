@@ -8,6 +8,8 @@ export const DROPPED_FILE = 'DROPPED_FILE';
 export const ADD_PLUGIN = 'ADD_PLUGIN';
 export const SET_PLUGIN_SETTINGS = 'SET_PLUGIN_SETTINGS';
 export const REGISTER_HANDLER = 'REGISTER_HANDLER';
+export const SHOW_DROP_PROGRESS = 'SHOW_DROP_PROGRESS';
+export const HIDE_DROP_PROGRESS = 'HIDE_DROP_PROGRESS';
 
 export function registerHandler(mime, handler) {
   return (dispatch, getState) => {
@@ -15,7 +17,9 @@ export function registerHandler(mime, handler) {
       const action = {
         type: REGISTER_HANDLER,
         mime,
-        handler
+        requestText: handler.requestText,
+        progressText: handler.progressText,
+        handler: handler.handler
       };
       dispatch(action);
     }
@@ -50,14 +54,33 @@ export function droppedFile(mime, file, contents, channel, networkId) {
 
     const handler = getState().dragDropHandlers[mime];
     if (handler) {
-      handler(action);
+      dispatch(showDropProgress(handler.progressText));
+      handler.handler(action)
+        .then(() => dispatch(hideDropProgress()))
+        .catch(() => dispatch(hideDropProgress()));
     } else {
       const defaultHandler = getState().dragDropHandlers[''];
       if (defaultHandler) {
-        defaultHandler(action);
+        dispatch(showDropProgress(defaultHandler.progressText));
+        defaultHandler.handler(action)
+          .then(() => dispatch(hideDropProgress()))
+          .catch(() => dispatch(hideDropProgress()));
       }
     }
     dispatch(action);
+  }
+}
+
+function showDropProgress(text) {
+  return {
+    type: SHOW_DROP_PROGRESS,
+    text
+  }
+}
+
+function hideDropProgress() {
+  return {
+    type: HIDE_DROP_PROGRESS
   }
 }
 

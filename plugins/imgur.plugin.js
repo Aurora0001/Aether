@@ -11,51 +11,58 @@ const ImgurPlugin = function(registerForAction, registerMime, store, actions) {
   this.settings = [
 
   ];
-  registerMime('image/png', (action) => this.onDrop(action, store, actions));
+  registerMime('image/png', {
+    handler: (action) => this.onDrop(action, store, actions),
+    requestText: 'Upload to Imgur?',
+    progressText: 'Uploading file to Imgur...'
+  });
 };
 
 ImgurPlugin.prototype.onDrop = (action, store, actions) => {
-  const reader = new FileReader();
-  reader.addEventListener("load", function () {
-    const body = {
-      image: reader.result.replace(/.*base64,/, ''),
-      type: 'base64',
-      name: action.file.name
-    };
-    const json_body = JSON.stringify(body);
+  return new Promise((resolve, reject) => {
 
-    const options = {
-      hostname: 'api.imgur.com',
-      port: 443,
-      path: '/3/upload.json',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Content-Length': Buffer.byteLength(json_body),
-        'User-Agent': 'IRC Client Imgur Plugin v0.1.0',
-        'Authorization': 'Client-ID 63fd5bd87956730'
-      }
-    };
+    const reader = new FileReader();
+    reader.addEventListener("load", function () {
+      const body = {
+        image: reader.result.replace(/.*base64,/, ''),
+        type: 'base64',
+        name: action.file.name
+      };
+      const json_body = JSON.stringify(body);
 
-    const post_req = https.request(options, (result) => {
-      let body = '';
-      result.setEncoding('utf8');
-      result.on('data', (chunk) => {
-        body += chunk;
+      const options = {
+        hostname: 'api.imgur.com',
+        port: 443,
+        path: '/3/upload.json',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(json_body),
+          'User-Agent': 'IRC Client Imgur Plugin v0.1.0',
+          'Authorization': 'Client-ID 63fd5bd87956730'
+        }
+      };
+
+      const post_req = https.request(options, (result) => {
+        let body = '';
+        result.setEncoding('utf8');
+        result.on('data', (chunk) => {
+          body += chunk;
+        });
+
+        result.on('end', () => {
+          const data = JSON.parse(body);
+          store.dispatch(actions.client.send_privmsg(action.channel, data.data.link, action.network_id));
+          resolve();
+        });
       });
 
-      result.on('end', () => {
-        const data = JSON.parse(body);
-        console.log(data.data.link);
-        store.dispatch(actions.client.send_privmsg(action.channel, data.data.link, action.network_id));
-      });
-    });
+      post_req.write(json_body);
+      post_req.end();
+    }, false);
 
-    post_req.write(json_body);
-    post_req.end();
-  }, false);
-
-  reader.readAsDataURL(action.file);
+    reader.readAsDataURL(action.file);
+  });
 }
 
 module.exports = ImgurPlugin;
