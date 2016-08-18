@@ -76,6 +76,9 @@ class Client extends Component {
         } else {
           this.props.send_raw('TOPIC', [channel.name, ...message.slice(1)], channel.network_id);
         }
+      },
+      QUIT: (message, channel) => {
+        this.props.disconnect(channel.network_id, message.slice(1).join(' '));
       }
     };
 
@@ -107,7 +110,8 @@ class Client extends Component {
             </Link>
           </div>
           {
-            networks.map(network => {
+            Object.keys(channels).filter(x => channels[x].type === 'network').map(chan => {
+              const network = networks.filter(x => `${x.host}:${x.port}` === channels[chan].network_id)[0];
               const network_id = `${network.host}:${network.port}`;
               return (
                 <NetworkTab

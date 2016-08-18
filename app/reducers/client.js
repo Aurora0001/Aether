@@ -3,7 +3,7 @@ import { NEW_PRIVMSG, NEW_ACTION, JOIN_CHANNEL, PART_CHANNEL, KICK_CHANNEL,
          NEW_NOTICE, ADD_MODE, REMOVE_MODE, USER_QUIT, CONNECTED, RECEIVE_NAMES,
          NICK_CHANGE, SET_TOPIC, USER_KILLED, DISCONNECTED, SERVER_ERROR,
          NEW_SELF_PRIVMSG, REMOVE_CHANNEL, JOIN_PRIVMSG, RECEIVE_CTCP,
-         RECEIVE_WHOIS
+         RECEIVE_WHOIS, DISCONNECT_BEGIN
        } from '../actions/client';
 
 export function clients(state = {}, action) {
@@ -12,6 +12,10 @@ export function clients(state = {}, action) {
       const new_obj = Object.assign({}, state);
       new_obj[action.network_id] = action.client;
       return new_obj;
+    case DISCONNECT_BEGIN:
+      const disconnectObj = Object.assign({}, state);
+      delete disconnectObj[action.network_id];
+      return disconnectObj;
     default:
       return state;
   }
@@ -55,6 +59,14 @@ export function channels(state = {}, action) {
         network_id: action.network_id
       };
       return new_state;
+    case DISCONNECT_BEGIN:
+      let removedState = Object.assign({} ,state);
+      Object.keys(removedState).forEach(key => {
+        if (removedState[key].network_id === action.network_id) {
+          delete removedState[key];
+        }
+      });
+      return removedState;
     default:
       return state;
   }

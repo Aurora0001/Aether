@@ -188,6 +188,7 @@ export function connect(host, port, ssl, _nick, ident, real, pass, sasl, invalid
   };
 }
 
+
 function receiveCtcp(from, to, text, type, destChannel, networkId) {
   return {
     type: RECEIVE_CTCP,
@@ -216,15 +217,15 @@ export function sendCtcp(target, type, text, networkId) {
   };
 }
 
-export function disconnect(networkId) {
+export function disconnect(networkId, message = 'Quit') {
   return (dispatch, getState) => {
     const client = getState().clients[networkId];
     if (client) {
-      client.disconnect('Quit');
+      client.disconnect(message);
       client.removeAllListeners();
-
       dispatch({
-        type: DISCONNECT_BEGIN
+        type: DISCONNECT_BEGIN,
+        network_id: networkId
       });
     }
   };
