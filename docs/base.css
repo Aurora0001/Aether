@@ -4,7 +4,7 @@ html, body {
   font-family: "Helvetica", sans-serif;
 }
 
-a {
+a.button {
   background: rgba(0, 0, 0, 0);
   padding: 10px 20px;
   border: 0;
@@ -15,7 +15,7 @@ a {
   text-decoration: none;
 }
 
-a:hover {
+a.button:hover {
   background: #fefefe;
   color: #111;
   cursor: pointer;
@@ -71,11 +71,22 @@ a:hover {
   margin-top: 50px;
   padding-left: 10vw;
   padding-right: 10vw;
+  padding-bottom: 50px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .feature img {
-  width: 800px;
+  max-width: 800px;
+  height: auto;
   margin-right: 50px;
+}
+
+.feature div {
+  min-width: 270px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .feature div h2 {
@@ -84,9 +95,17 @@ a:hover {
   font-size: 36px;
 }
 
+.feature div h3 {
+  color: #333;
+  font-weight: 500;
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
 .feature div p {
   font-size: 18px;
   color: #555;
+  margin-top: 5px;
 }
 
 .highlight {

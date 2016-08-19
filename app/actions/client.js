@@ -31,6 +31,7 @@ export const SEND_CTCP = 'SEND_CTCP';
 export const RECEIVE_CTCP = 'RECEIVE_CTCP';
 export const WILL_SEND_PRIVMSG = 'WILL_SEND_PRIVMSG';
 export const RECEIVE_WHOIS = 'RECEIVE_WHOIS';
+export const RECEIVE_MOTD = 'RECEIVE_MOTD';
 
 // If any of these modes are seen, we need to refresh the names list.
 const DISPLAY_MODES = ['q', 'a', 'o', 'h', 'v'];
@@ -64,6 +65,12 @@ export function connect(host, port, ssl, _nick, ident, real, pass, sasl, invalid
 
     client.addListener('netError', (err) => {
       console.log(err);
+    });
+
+    client.addListener('motd', (motd) => {
+      for (let line of motd.split('\n')) {
+        dispatch(receiveMotd(line, networkId));
+      }
     });
 
     client.addListener('message', (nick, to, text, message) => {
@@ -188,6 +195,13 @@ export function connect(host, port, ssl, _nick, ident, real, pass, sasl, invalid
   };
 }
 
+function receiveMotd(motd, networkId) {
+  return {
+    type: RECEIVE_MOTD,
+    motd,
+    network_id: networkId
+  };
+}
 
 function receiveCtcp(from, to, text, type, destChannel, networkId) {
   return {

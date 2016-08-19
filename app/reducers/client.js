@@ -3,7 +3,7 @@ import { NEW_PRIVMSG, NEW_ACTION, JOIN_CHANNEL, PART_CHANNEL, KICK_CHANNEL,
          NEW_NOTICE, ADD_MODE, REMOVE_MODE, USER_QUIT, CONNECTED, RECEIVE_NAMES,
          NICK_CHANGE, SET_TOPIC, USER_KILLED, DISCONNECTED, SERVER_ERROR,
          NEW_SELF_PRIVMSG, REMOVE_CHANNEL, JOIN_PRIVMSG, RECEIVE_CTCP,
-         RECEIVE_WHOIS, DISCONNECT_BEGIN
+         RECEIVE_WHOIS, DISCONNECT_BEGIN, RECEIVE_MOTD
        } from '../actions/client';
 
 export function clients(state = {}, action) {
@@ -142,6 +142,10 @@ export function feeds(state = {}, action) {
                              action.channel,
                             `An error has occurred: ${action.message}`,
                             'error');
+    case RECEIVE_MOTD:
+      let motdState = Object.assign({}, state);
+      return appendToChannelId(motdState, action.network_id, action.network_id,
+                               action.network_id, action.motd, 'motd');
     default:
       return state;
   }
