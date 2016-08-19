@@ -6,7 +6,6 @@ class ChatMessage extends Component {
   static propTypes = {
     text: PropTypes.string.isRequired,
     user: PropTypes.string.isRequired,
-    time: PropTypes.string.isRequired,
     kind: PropTypes.string.isRequired,
     colour: PropTypes.string.isRequired
   };

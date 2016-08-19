@@ -1,0 +1,95 @@
+html, body {
+  padding: 0;
+  margin: 0;
+  font-family: "Helvetica", sans-serif;
+}
+
+a {
+  background: rgba(0, 0, 0, 0);
+  padding: 10px 20px;
+  border: 0;
+  color: #fefefe;
+  font-weight: bold;
+  box-shadow: 0 0 0 2px #FFF inset!important;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+a:hover {
+  background: #fefefe;
+  color: #111;
+  cursor: pointer;
+}
+
+
+.header {
+  height: 650px;
+  text-align: center;
+  padding-top: 100px;
+  background: #222;
+  overflow: hidden;
+}
+
+.header img {
+  margin-top: 20px;
+}
+
+.header h1 {
+  color: #fefefe;
+  font-size: 60px;
+  margin-bottom: 0;
+  font-weight: 300;
+}
+
+.header h2 {
+  color: #aeaeae;
+  font-size: 18px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+
+.navbar {
+  position: relative;
+  background: rgba(33, 133, 208, 0.7);
+  height: 40px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.navbar a {
+  padding-left: 25px;
+  padding-right: 25px;
+  height: 100%;
+  line-height: 40px;
+}
+
+.feature {
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  padding-left: 10vw;
+  padding-right: 10vw;
+}
+
+.feature img {
+  width: 800px;
+  margin-right: 50px;
+}
+
+.feature div h2 {
+  color: #333;
+  font-weight: 500;
+  font-size: 36px;
+}
+
+.feature div p {
+  font-size: 18px;
+  color: #555;
+}
+
+.highlight {
+  color: rgba(33, 133, 208, 0.9);
+  font-weight: 700;
+}
