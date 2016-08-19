@@ -276,13 +276,19 @@ function appendToChannelId(state, channelId, nick, to, text, kind, safe) {
     // Different message - create new item
     const md5 = crypto.createHash('md5');
     md5.update(nick.toUpperCase());
+    const digest = md5.digest('hex');
+    // Currently, range is 0 - 255
+    let hue = parseInt(digest.substr(0, 2), 16);
+    for (let i = 3; i < 10; i++) {
+      hue += parseInt(digest[i], 16);
+    }
 
     const action = {
       nick,
       to,
       text,
       kind,
-      colour: `#${md5.digest('hex').substr(0, 6)}`,
+      colour: `hsl(${hue}, 50%, 58%)`,
       safe,
       time: new Date()
     };

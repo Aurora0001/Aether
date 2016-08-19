@@ -1,10 +1,32 @@
 import { CHANGE_CURRENT_CHANNEL, CREATE_NETWORK_TAB, FOLD_NETWORK_TAB,
          EXPAND_NETWORK_TAB, ADD_NETWORK, REMOVE_NETWORK,
          ADD_PLUGIN, SET_PLUGIN_SETTINGS, REGISTER_HANDLER, SHOW_DROP_PROGRESS,
-         HIDE_DROP_PROGRESS
+         HIDE_DROP_PROGRESS, BEGIN_SEARCH, END_SEARCH, SET_SEARCH_TEXT
        } from '../actions/ui.js';
 import { CONNECTED, NEW_PRIVMSG, NEW_ACTION, NICK_CHANGE }
       from '../actions/client.js';
+
+export function searchText(state = '', action) {
+  switch (action.type) {
+    case SET_SEARCH_TEXT:
+      return action.text;
+    case END_SEARCH:
+      return '';
+    default:
+      return state;
+  }
+}
+
+export function searching(state = false, action) {
+  switch (action.type) {
+    case BEGIN_SEARCH:
+      return true;
+    case END_SEARCH:
+      return false;
+    default:
+      return state;
+  }
+}
 
 export function dropProgress(state = null, action) {
   switch (action.type) {

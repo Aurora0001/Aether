@@ -12,8 +12,9 @@
 }
 
 .chat.hover {
-  background: rgba(0, 0, 0, 0.2);
-  -webkit-filter: blur(0.25rem);
+  background: rgba(0, 0, 0, 0.1);
+  opacity: 0.5;
+  -webkit-filter: blur(0.2rem);
 }
 
 ::-webkit-scrollbar {
@@ -32,4 +33,23 @@
 
 .chat a {
   word-break: break-all;
+}
+
+.drop_icon {
+  display: none;
+}
+
+.drop_icon.hover {
+  display: block;
+  position: absolute;
+  top: 45vh;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.drop_icon i {
+  font-size: 5rem;
 }

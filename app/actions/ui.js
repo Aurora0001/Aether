@@ -10,6 +10,28 @@ export const SET_PLUGIN_SETTINGS = 'SET_PLUGIN_SETTINGS';
 export const REGISTER_HANDLER = 'REGISTER_HANDLER';
 export const SHOW_DROP_PROGRESS = 'SHOW_DROP_PROGRESS';
 export const HIDE_DROP_PROGRESS = 'HIDE_DROP_PROGRESS';
+export const BEGIN_SEARCH = 'BEGIN_SEARCH';
+export const END_SEARCH = 'END_SEARCH';
+export const SET_SEARCH_TEXT = 'SET_SEARCH_TEXT';
+
+export function setSearchText(text) {
+  return {
+    type: SET_SEARCH_TEXT,
+    text
+  };
+}
+
+export function beginSearch() {
+  return {
+    type: BEGIN_SEARCH
+  };
+}
+
+export function endSearch() {
+  return {
+    type: END_SEARCH
+  };
+}
 
 export function registerHandler(mime, handler) {
   return (dispatch, getState) => {

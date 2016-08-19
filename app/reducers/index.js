@@ -4,7 +4,7 @@ import * as storage from 'redux-storage';
 import { clients, feeds, users, channels } from './client.js';
 import { current_channel, network_states, channel_counter, networks,
          highlightWords, pluginSettings, pluginList, dragDropHandlers,
-         dropProgress
+         dropProgress, searching, searchText
        } from './ui.js';
 
 const rootReducer = combineReducers({
@@ -21,7 +21,9 @@ const rootReducer = combineReducers({
   pluginSettings,
   pluginList,
   dragDropHandlers,
-  dropProgress
+  dropProgress,
+  searching,
+  searchText
 });
 
 export default storage.reducer(rootReducer);

@@ -14,7 +14,9 @@ function mapStateToProps(state) {
     current_channel: state.current_channel,
     network_states: state.network_states,
     counter: state.channel_counter,
-    dropProgress: state.dropProgress
+    dropProgress: state.dropProgress,
+    searching: state.searching,
+    searchText: state.searchText
   };
 }
 

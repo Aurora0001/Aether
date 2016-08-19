@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import TitleBar from './TitleBar.js';
 import ChatMessage from './ChatMessage.js';
 import ChatBar from './ChatBar.js';
+import SearchBar from './SearchBar.js';
 import styles from './ChatBox.css';
 
 // 1MB
@@ -62,7 +63,7 @@ class ChatBox extends Component {
 
   render() {
     const messages = this.props.messages || [];
-    const { channel, users, callback } = this.props;
+    const { channel, users, callback, searching } = this.props;
     return (
       <div>
         <TitleBar topic={channel.topic} name={channel.name} />
@@ -75,15 +76,38 @@ class ChatBox extends Component {
         >
           {
             messages.map(item => {
-              return (
-                <ChatMessage
-                  {...item}
-                />
-              );
+              if (this.props.searchText === '') {
+                return (
+                  <ChatMessage
+                    {...item}
+                  />
+                );
+              } else if (item.text.toLowerCase().indexOf(this.props.searchText) !== -1){
+                return (
+                  <ChatMessage
+                    {...item}
+                  />
+                );
+              }
             })
           }
         </div>
-        <ChatBar dropProgress={this.props.dropProgress} callback={callback} users={users}/>
+        <div className={`${styles.drop_icon} ${styles[this.state.dragClass]}`}>
+          <i className="material-icons">cloud_upload</i>
+          <p>Upload File to Channel</p>
+        </div>
+        {
+          searching ?
+            <SearchBar
+              searchText={this.props.searchText}
+              searchCallback={this.props.searchCallback}
+            /> :
+            <ChatBar
+              dropProgress={this.props.dropProgress}
+              callback={callback}
+              users={users}
+            />
+        }
       </div>
     );
   }
