@@ -3,7 +3,7 @@ import PluginSettingsItem from './PluginSettingsItem.js';
 import sidebar_styles from '../../Sidebar.css';
 import styles from './Page.css';
 
-class NetworkSettings extends Component {
+class PluginSettings extends Component {
   static propTypes = {
     pluginList: PropTypes.array.isRequired,
     pluginSettings: PropTypes.object.isRequired,
@@ -26,6 +26,7 @@ class NetworkSettings extends Component {
                   pluginSettings={pluginSettings[item.uuid]}
                   setPluginSettings={setPluginSettings}
                   plugin={item}
+                  key={item.uuid}
                 />
               );
             })
@@ -36,4 +37,4 @@ class NetworkSettings extends Component {
   }
 }
 
-export default NetworkSettings;
+export default PluginSettings;

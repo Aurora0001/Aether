@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import sidebar_styles from '../../Sidebar.css';
 import styles from './PluginSettingsItem.css';
 
-class NetworkSettings extends Component {
+class PluginSettingsItem extends Component {
   static propTypes = {
     plugin: PropTypes.object.isRequired,
     pluginSettings: PropTypes.object.isRequired,
@@ -38,7 +38,7 @@ class NetworkSettings extends Component {
               plugin.settings.map(item => {
                 const defaultValue = item.generateDefault(pluginSettings);
                 return (
-                  <div>
+                  <div key={item.label.text}>
                     <label>{item.label.text}</label>
                     <input {...item.input} {...defaultValue} />
                   </div>
@@ -53,4 +53,4 @@ class NetworkSettings extends Component {
   }
 }
 
-export default NetworkSettings;
+export default PluginSettingsItem;

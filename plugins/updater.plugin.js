@@ -16,7 +16,7 @@ const Updater = function(registerForAction, registerForMime, store, actions) {
       if (!action.self || !updateData) {
         return;
       }
-      store.dispatch(actions.client.new_privmsg('Aether Updater ♦', action.channel, `Update is available at ${updateData.html_url} (${updateData.name})`, action.network_id));
+      store.dispatch(actions.client.new_privmsg('♦ Aether Updater', action.channel, `Update is available at ${updateData.html_url} (${updateData.name})`, action.network_id));
     }, 5000);
   });
 
