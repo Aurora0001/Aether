@@ -1,105 +1,30 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Aether - Beautiful and Practical IRC Client</title>
-    <link rel="stylesheet" href="./base.css" />
-  </head>
-  <body>
-    <div class="header">
-      <h1>Aether</h1>
-      <h2>
-        A beautiful and practical IRC client with all the features you'd
-        expect from a modern chat platform.
-      </h2>
-      <div>
-        <a class="button" href="https://github.com/Aurora0001/Aether/releases">Download</a>
-      </div>
-      <img src="https://i.imgur.com/Oc1hhh1.png" />
-    </div>
+---
+layout: frontpage
+---
 
-    <div class="feature">
-      <img class="left" src="https://i.imgur.com/aeGx7OZ.png" />
-      <div>
-        <h2>Conversations, made easy</h2>
-        <p>
-          Aether supports <span class="highlight">everything that you're used
-          to</span> in a chat client; it's simple to start a private
-          conversation or join a public channel and chat with others. Since
-          Aether uses the IRC protocol, you can chat with over
-          <span class="highlight">450,000 people</span> in
-          <span class="highlight">250,000 channels!</span>
-          <sup><a href="http://irc.netsplit.de/">[1]</a></sup>
-        </p>
-        <h3>First-class Emoji Support</h3>
-        <p>
-          You can use as many emoji as you like, and have them rendered
-          <span class="highlight">beautifully</span> in the client - no need to
-          stick to boring ASCII emotes.
-        </p>
-        <h3>The Visual Element</h3>
-        <p>
-          Aether uses <span class="highlight">bold, visually distinct</span>
-          colours to identify users and their permissions. With this, it's no
-          problem to distinguish between two users with similar nicknames.
-        </p>
-      </div>
-    </div>
-    <div class="feature">
-      <div>
-        <h2>Find anything, any time</h2>
-        <p>
-          Aether supports <span class="highlight">searching all of your messages
-          </span>simply, using <kbd>Ctrl</kbd>+<kbd>F</kbd>
-          (or <kbd>Command</kbd>+<kbd>F</kbd> on macOS). You'll never have to
-          waste valuable time searching for links or messages that were sent
-          previously with Aether.
-        </p>
-        <h3>Browse through your logs</h3>
-        <p>
-          Aether automatically logs IRC messages for you, so that you can find
-          and use them at any time. Since the logs are just files, you can also
-          import them into other programs or modify them with a text editor.
-        </p>
-      </div>
-      <img class="right" src="https://i.imgur.com/UnGun6F.png" />
-    </div>
-    <div class="feature">
-      <img class="left" src="https://i.imgur.com/KPIetX0.png" />
-      <div>
-        <h2>Extensible and Adjustable</h2>
-        <p>
-          Aether comes with an <span class="highlight">extensive plugin system</span>
-          that allows you to tweak almost any aspect of the client. All the
-          changes you see in the UI can be adjusted through plugins simply
-          and easily.
-        </p>
-        <h3>Drag in your files</h3>
-        <p>
-          Aether can <span class="highlight">automatically upload files</span>
-          that you drag-and-drop into the client so you can share screenshots,
-          code snippets and logs without having to manually copy the data,
-          upload it to a file hosting service and then copy in the link.
-        </p>
-        <p>
-          By default, Aether will upload images to Imgur, and text files to
-          GitHub Gist. Other plugins are available to handle different file
-          types if neither of the above suit you.
-        </p>
-      </div>
-    </div>
-    <div class="final">
-      <h2>Best of all, Aether is free software</h2>
-      <p>
-        Aether is free software, licensed under the permissive MIT License.
-        You can use or contribute to the code for free, with no restrictions on
-        your right to view or change Aether.
-      </p>
-      <a class="button inverted" href="https://github.com/Aurora0001/Aether/releases">Download</a>
-      <a class="button inverted" href="https://github.com/Aurora0001/Aether">Contribute</a>
-    </div>
-    <footer>
-      (C) Aether Developers, 2016. This document is released under the
-      public domain.
-    </footer>
-  </body>
-</html>
+<div class="header">
+  <h1>Aether</h1>
+  <h2>
+    A beautiful and practical IRC client with all the features you'd
+    expect from a modern chat platform.
+  </h2>
+  <div>
+    <a class="button" href="https://github.com/Aurora0001/Aether/releases">Download</a>
+  </div>
+  <img src="https://i.imgur.com/Oc1hhh1.png" />
+</div>
+
+{% for feature in site.data.features %}
+  {% include feature_left.html img=feature.img text=feature.text %}
+{% endfor %}
+
+<div class="final">
+  <h2>Best of all, Aether is free software</h2>
+  <p>
+    Aether is free software, licensed under the permissive MIT License.
+    You can use or contribute to the code for free, with no restrictions on
+    your right to view or change Aether.
+  </p>
+  <a class="button inverted" href="https://github.com/Aurora0001/Aether/releases">Download</a>
+  <a class="button inverted" href="https://github.com/Aurora0001/Aether">Contribute</a>
+</div>

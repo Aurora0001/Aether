@@ -1,0 +1,54 @@
+- img: https://i.imgur.com/aeGx7OZ.png
+  text: >
+    ## Conversations, made easy
+
+    Aether supports *everything that you're used to* in a chat client; it's
+    simple to start a private conversation or join a public channel and chat
+    with others. Since Aether uses the IRC protocol, you can chat with over
+    *450,000 people* in *250,000 channels!*
+    [[1]](http://irc.netsplit.de)
+
+    ### First-class Emoji Support
+
+    You can use as many emoji as you like, and have them rendered
+    *beautifully* in the client - no need to stick to boring ASCII emotes.
+
+    ### The Visual Element
+
+    Aether uses <span class="highlight">bold, visually distinct</span>
+    colours to identify users and their permissions. With this, it's no
+    problem to distinguish between two users with similar nicknames.
+
+- img: https://i.imgur.com/UnGun6F.png
+  text: >
+    ## Find anything, any time
+
+    Aether supports *searching all of your messages* simply, using
+    <kbd>Ctrl</kbd>+<kbd>F</kbd> (or <kbd>Command</kbd>+<kbd>F</kbd> on macOS).
+    You'll never have to waste valuable time searching for links or messages
+    that were sent previously with Aether.
+
+    ### Browse through your logs
+
+    Aether automatically logs IRC messages for you, so that you can find
+    and use them at any time. Since the logs are just files, you can also
+    import them into other programs or modify them with a text editor.
+
+- img: https://i.imgur.com/KPIetX0.png
+  text: >
+    ## Extensible and Adjustable
+
+    Aether comes with an *extensive plugin system* that allows you to tweak
+    almost any aspect of the client. All the changes you see in the UI can be
+    adjusted through plugins simply and easily.
+
+    ### Drag in your files
+
+    Aether can *automatically upload files* that you drag-and-drop into the
+    client so you can share screenshots, code snippets and logs without having
+    to manually copy the data, upload it to a file hosting service and
+    then copy in the link.
+
+    By default, Aether will upload images to Imgur, and text files to
+    GitHub Gist. Other plugins are available to handle different file
+    types if neither of the above suit you.
