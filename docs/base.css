@@ -10,9 +10,14 @@ a.button {
   border: 0;
   color: #fefefe;
   font-weight: bold;
-  box-shadow: 0 0 0 2px #FFF inset!important;
+  box-shadow: 0 0 0 2px #FFF inset;
   border-radius: 5px;
   text-decoration: none;
+}
+
+a.button.inverted {
+  color: #333;
+  box-shadow: 0 0 0 2px #333 inset;
 }
 
 a.button:hover {
@@ -21,6 +26,11 @@ a.button:hover {
   cursor: pointer;
 }
 
+
+a.button.inverted:hover {
+  background: #333;
+  color: #fefefe;
+}
 
 .header {
   height: 650px;
@@ -78,7 +88,14 @@ a.button:hover {
 .feature img {
   max-width: 800px;
   height: auto;
+}
+
+.feature img.left {
   margin-right: 50px;
+}
+
+.feature img.right {
+  margin-left: 50px;
 }
 
 .feature div {
@@ -111,4 +128,35 @@ a.button:hover {
 .highlight {
   color: rgba(33, 133, 208, 0.9);
   font-weight: 700;
+}
+
+.final {
+  text-align: center;
+  max-width: 50vw;
+  min-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.final h2 {
+  color: #333;
+  font-weight: 500;
+  font-size: 36px;
+}
+
+.final p {
+  font-size: 18px;
+  color: #555;
+}
+
+footer {
+  margin-top: 50px;
+  background: #222;
+  color: #999;
+  font-size: 14px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  font-weight: 500;
+  text-align: center;
 }
