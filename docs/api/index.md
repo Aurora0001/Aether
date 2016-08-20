@@ -1,5 +1,6 @@
 ---
 layout: api_doc
+title: Plugin API Documentation - Aether
 ---
 
 # API Documentation
