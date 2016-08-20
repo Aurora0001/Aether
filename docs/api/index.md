@@ -53,7 +53,42 @@ Plugins can require any built-in Node.js module, such as `https`, `fs`, or
 `net`. Libraries from `npm` must be bundled with your plugin.
 
 ## Getting Started
-TODO.
+Aether plugins are, at their heart, just simple JavaScript objects that are
+created with the `new` syntax. Here are some examples of a minimal valid plugin
+in both ES5 and ES6 syntax.
+
+### ES5
+
+{% highlight js %}
+function MyPlugin(registerForHook, registerForMime, store, actions) {
+  this.name = 'Example Plugin';
+  this.author = 'ExampleCreator';
+  this.description = 'Acts as an example plugin.';
+  this.version = [1, 0, 0];
+  this.uuid = '49d8c38a-22ca-4b53-9133-70e5177bc2e7';
+  this.defaultSettings = {};
+  this.settings = [];
+}
+
+module.exports = MyPlugin;
+{% endhighlight %}
+
+### ES6
+{% highlight js %}
+class MyPlugin {
+  constructor(registerForHook, registerForMime, store, actions) {
+    this.name = 'Example Plugin';
+    this.author = 'ExampleCreator';
+    this.description = 'Acts as an example plugin.';
+    this.version = [1, 0, 0];
+    this.uuid = '49d8c38a-22ca-4b53-9133-70e5177bc2e7';
+    this.defaultSettings = {};
+    this.settings = [];
+  }
+}
+
+export default MyPlugin;
+{% endhighlight %}
 
 ## Metadata
 TODO.
