@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
+    <link rel="stylesheet" href="{{ "/css/base.css" | prepend: site.github.url }}">
+  </head>
+  <body>
+    {% include header.html %}
+    <div class="wrapper">
+      {{ content }}
+    </div>
+    {% include footer.html %}
+  </body>
+</html>
