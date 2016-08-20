@@ -2,8 +2,8 @@
 <html>
   <head>
     <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
-    <link rel="stylesheet" href="{{ "/css/base.css" | prepend: site.baseurl }}">
-    <link rel="stylesheet" href="{{ "/css/frontpage.css" | prepend: site.baseurl }}">
+    <link rel="stylesheet" href="{{ "/css/base.css" | prepend: site.github.url }}">
+    <link rel="stylesheet" href="{{ "/css/frontpage.css" | prepend: site.github.url }}">
   </head>
   <body>
     {% include header.html %}
