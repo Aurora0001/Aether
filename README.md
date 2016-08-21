@@ -1,7 +1,8 @@
 # Aether IRC Client
 
-[Latest Releases](https://github.com/Aurora0001/PantheonIRC/releases) |
-[Issues and Suggestions](https://github.com/Aurora0001/PantheonIRC/issues)
+[Latest Releases](https://github.com/Aurora0001/Aether/releases) |
+[Issues and Suggestions](https://github.com/Aurora0001/Aether/issues) |
+[GitHub Pages](https://aurora0001.github.io/Aether/)
 
 A beautiful, practical IRC client with a focus on user-friendliness and
 simplicity.
