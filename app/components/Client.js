@@ -58,6 +58,26 @@ class Client extends Component {
           this.props.send_raw('MODE', [channel.name, '+b', user], channel.network_id);
         }
       },
+      OP: (message, channel) => {
+        for (let user of message.slice(1)) {
+          this.props.send_raw('MODE', [channel.name, '+o', user], channel.network_id);
+        }
+      },
+      DEOP: (message, channel) => {
+        for (let user of message.slice(1)) {
+          this.props.send_raw('MODE', [channel.name, '-o', user], channel.network_id);
+        }
+      },
+      VOICE: (message, channel) => {
+        for (let user of message.slice(1)) {
+          this.props.send_raw('MODE', [channel.name, '+v', user], channel.network_id);
+        }
+      },
+      DEVOICE: (message, channel) => {
+        for (let user of message.slice(1)) {
+          this.props.send_raw('MODE', [channel.name, '-v', user], channel.network_id);
+        }
+      },
       UNBAN: (message, channel) => {
         for (let user of message.slice(1)) {
           this.props.send_raw('MODE', [channel.name, '-b',  `${user}!*@*`], channel.network_id);
@@ -78,6 +98,9 @@ class Client extends Component {
         }
       },
       QUIT: (message, channel) => {
+        this.props.disconnect(channel.network_id, message.slice(1).join(' '));
+      },
+      DISCONNECT: (message, channel) => {
         this.props.disconnect(channel.network_id, message.slice(1).join(' '));
       }
     };

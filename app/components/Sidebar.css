@@ -8,9 +8,9 @@
 
 .sidebar {
   width: 13em;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   height: 100%;
-  overflow: hidden;
 }
 
 .button:hover {

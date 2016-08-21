@@ -21,10 +21,6 @@
   margin-bottom: 0;
 }
 
-.message:first-of-type {
-  padding-top: 0.3rem;
-}
-
 .message:last-of-type {
   border-bottom: 0;
   padding-bottom: 0;
@@ -64,9 +60,6 @@
   color: rgba(0, 0, 0, 0.4);
 }
 
-.message:first-of-type .time {
-  top: 0;
-}
 
 .message.privmsg .content {
   display: block;
