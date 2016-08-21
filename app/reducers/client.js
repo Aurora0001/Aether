@@ -259,7 +259,7 @@ function append_message(state, networkId, nick, to, text, kind, safe = false) {
 }
 
 function appendToChannelId(state, channelId, nick, to, text, kind, safe) {
-  const channelMessages = ['join', 'part', 'quit'];
+  const channelMessages = ['join', 'part', 'quit', 'squash'];
 
   let channelFeed = state[channelId] || [];
   const lastMessage = channelFeed[channelFeed.length - 1];
@@ -271,7 +271,8 @@ function appendToChannelId(state, channelId, nick, to, text, kind, safe) {
   } else if (lastMessage && channelMessages.indexOf(lastMessage.kind) !== -1 && channelMessages.indexOf(kind) !== -1) {
     // "Squash" privmsgs together from the same author.
     lastMessage[kind].push(nick);
-    const list = squashJoinList(squashChannelMessages(lastMessage.join, 'joined'), squashChannelMessages(lastMessage.part, 'left'), squashChannelMessages(lastMessage.quit, 'quit'));
+    lastMessage.kind = 'squash';
+    const list = squashJoinList(squashChannelMessages(lastMessage.join, 'joined'), squashChannelMessages(lastMessage.part.concat(lastMessage.quit), 'left'));
     lastMessage.text = `${list}`;
     lastMessage.time = new Date();
     lastMessage.nick = to;
@@ -327,13 +328,12 @@ function squashChannelMessages(list, verb) {
 
   const displayedUserList = Object.keys(userMap)
     .map(name => `${name}${userMap[name] > 1 ? ` (${userMap[name]})` : ''}`)
-    .join(', ');
 
   let word_list;
   if (list.length <= 2) {
-    word_list = displayedUserList;
+    word_list = displayedUserList.map(x => `<strong>${x}</strong>`).join(' and ');
   } else {
-    word_list = `<abbr title="${displayedUserList}">${list.length} users</abbr>`;
+    word_list = `<abbr title="${displayedUserList.join(', ')}">${list.length} users</abbr>`;
   }
   return `${word_list} ${verb}`;
 }

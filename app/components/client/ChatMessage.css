@@ -90,6 +90,29 @@
   list-style-position: inside;
 }
 
+.message .content strong, .message .content abbr {
+  color: #3a3a3a;
+  font-weight: bold;
+}
+
+.squash .username {
+  display: none;
+}
+
+.squash .avatar, .join .avatar, .part .avatar, .quit .avatar {
+  display: none;
+}
+
+.squash .main, .join .main, .part .main, .quit .main {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.squash .main .content, .join .main .content, .part .main .content, .quit .main .content {
+  color: rgba(0, 0, 0, 0.6);
+  line-height: 1rem;
+}
+
 .content ul li {
   border: 0;
   display: list-item;

@@ -6,7 +6,7 @@ import { NEW_PRIVMSG, NEW_SELF_PRIVMSG, NEW_ACTION } from '../actions/client.js'
 const renderer = new marked.Renderer();
 renderer.paragraph = (text) => text;
 renderer.link = (href, title, text) =>
-  `<a target="_blank" href="${href}" title="${title}">
+  `<a target="_blank" href="${href}" title="${href}">
     ${text}
    </a>`;
 
