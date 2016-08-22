@@ -1,7 +1,7 @@
 {
   "name": "aether-irc",
   "productName": "Aether IRC Client",
-  "version": "0.6.0",
+  "version": "0.9.0",
   "main": "main.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test mocha --compilers js:babel-register --recursive --require ./test/setup.js test/**/*.spec.js",
@@ -23,7 +23,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Aurora0001/IRCClient.git"
+    "url": "git+https://github.com/Aurora0001/Aether.git"
   },
   "author": {
     "name": "Aurora0001",
@@ -31,9 +31,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Aurora0001/IRCClient/issues"
+    "url": "https://github.com/Aurora0001/Aether/issues"
   },
-  "homepage": "https://github.com/Aurora0001/IRCClient",
+  "homepage": "https://github.com/Aurora0001/Aether",
   "devDependencies": {
     "asar": "^0.12.1",
     "babel-core": "^6.13.1",

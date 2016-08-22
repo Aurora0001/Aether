@@ -90,6 +90,20 @@ class MyPlugin {
 export default MyPlugin;
 {% endhighlight %}
 
+Plugins **must** provide the following values, as shown above:
+
+- `name` - the user-friendly name to display to users which identifies your
+           plugin
+- `author` - a username to identify the creator of this plugin. It is preferred
+             that you use your GitHub username.
+- `description` - a moderately short description of what your plugin does.
+- `version` - a semantic version for your plugin, which each digit represented
+              separately in the array (e.g. `v14.3.21` = `[14, 3, 21]`)
+- `uuid` - A unique identifier (UUID) for your plugin. You can generate one
+           [here](https://guidgenerator.com/). **Important: every time you
+           change your `defaultSettings`, you *must* generate a new UUID, or
+           else your new defaults will not be used.**
+
 ## Metadata
 TODO.
 
