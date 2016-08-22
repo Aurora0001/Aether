@@ -12,7 +12,6 @@ import filter from 'redux-storage-decorator-filter';
 import rootReducer from '../reducers';
 import * as uiActions from '../actions/ui.js';
 import { pluginMiddleware, registerHook, loadPlugins } from './pluginMiddleware.js';
-import { markupMiddleware } from './markupMiddleware.js';
 
 const router = routerMiddleware(hashHistory);
 
@@ -29,7 +28,7 @@ const storeMiddleware = storage.createMiddleware(engine, [], [
   uiActions.SET_PLUGIN_SETTINGS
 ]);
 
-const enhancer = applyMiddleware(thunk, router, pluginMiddleware, storeMiddleware, markupMiddleware);
+const enhancer = applyMiddleware(thunk, router, pluginMiddleware, storeMiddleware);
 
 export default function configureStore(initialState) {
   const store = createStore(rootReducer, initialState, enhancer);

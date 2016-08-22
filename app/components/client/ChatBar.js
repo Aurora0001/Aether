@@ -75,7 +75,7 @@ class ChatBar extends Component {
       <div className={styles.chat_bar}>
         <input
           type="text"
-          placeholder={this.props.dropProgress || "Write your message here, and press Enter to send. Markdown is supported."}
+          placeholder={this.props.dropProgress || "Write your message here, and press Enter to send."}
           onChange={this.inputChange}
           onKeyDown={this.keyPress}
           value={this.state.text}

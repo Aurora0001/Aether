@@ -176,9 +176,7 @@ export function connect(host, port, ssl, _nick, ident, real, pass, sasl, invalid
     });
 
     client.addListener('error', (reason) => {
-      Object.keys(client.chans).forEach(channel => {
-        dispatch(server_error(reason.args.join(' '), host, channel, networkId));
-      });
+      dispatch(server_error(reason.args.join(' '), host, getState().current_channel || networkId, networkId));
     });
 
     client.addListener('whois', (info) => {

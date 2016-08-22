@@ -16,6 +16,14 @@ class NetworkTab extends Component {
     viewNetwork: PropTypes.func.isRequired
   };
 
+  keyPress = (event) => {
+    if (event.keyCode === 27) {
+      this.setState({
+        joinChannel: false
+      });
+    }
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -84,7 +92,13 @@ class NetworkTab extends Component {
                   joinChannel: false
                 });
               }}>
-                <input name="channel" type="text" className={styles.channelInput} placeholder="Press Enter to join channel." />
+                <input
+                  name="channel"
+                  type="text"
+                  className={styles.channelInput}
+                  placeholder="Press Enter to join channel."
+                  onKeyDown={this.keyPress}
+                />
               </form>
             : null
           }

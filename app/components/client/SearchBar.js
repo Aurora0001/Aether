@@ -15,6 +15,12 @@ class SearchBar extends Component {
     this.props.searchCallback(event.target.value);
   }
 
+  keyPress = (event) => {
+    if (event.keyCode === 27) {
+      this.props.endSearchCallback();
+    }
+  }
+
   render() {
     return (
       <div className={styles.chat_bar}>
@@ -23,6 +29,7 @@ class SearchBar extends Component {
           type="text"
           placeholder={"Search here, and press Escape when done."}
           onChange={this.inputChange}
+          onKeyDown={this.keyPress}
           value={this.props.searchText}
           className={styles.search_box}
         />

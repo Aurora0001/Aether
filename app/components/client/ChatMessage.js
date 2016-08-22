@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import moment from 'moment';
+import Linkify from 'react-linkify';
 import styles from './ChatMessage.css';
+import ExpandableLink from './ExpandableLink.js';
+import { markup } from '../../store/markupMiddleware.js';
 
 class ChatMessage extends Component {
   static propTypes = {
@@ -11,7 +14,7 @@ class ChatMessage extends Component {
   };
 
   render() {
-    const { text, user, time, kind, colour, safe } = this.props;
+    const { text, user, time, kind, colour, useHtml } = this.props;
     return (
       <span className={`${styles.message} ${styles[kind]}`}>
         <span
@@ -26,13 +29,10 @@ class ChatMessage extends Component {
         <div className={styles.main}>
           <span className={styles.username}>{user}</span>
           {
-            safe ? <span
-              className={styles.content}
-              dangerouslySetInnerHTML={{
-                __html: text
-              }}
-            /> :
-            <span className={styles.content}>{text}</span>
+            useHtml ? <span className={styles.content} dangerouslySetInnerHTML={{
+              __html: text
+            }} /> :
+            <span className={styles.content}><Linkify component={ExpandableLink}>{markup(text)}</Linkify></span>
           }
         </div>
       </span>

@@ -11,7 +11,6 @@ import rootReducer from '../reducers';
 import * as clientActions from '../actions/client.js';
 import * as uiActions from '../actions/ui.js';
 import { pluginMiddleware, registerHook, loadPlugins } from './pluginMiddleware.js';
-import { markupMiddleware } from './markupMiddleware.js';
 
 const actionCreators = {
   ...clientActions,
@@ -39,7 +38,7 @@ const storeMiddleware = storage.createMiddleware(engine, [], [
 ]);
 
 const enhancer = compose(
-  applyMiddleware(thunk, router, logger, pluginMiddleware, storeMiddleware, markupMiddleware),
+  applyMiddleware(thunk, router, logger, pluginMiddleware, storeMiddleware),
   window.devToolsExtension ?
     window.devToolsExtension({ actionCreators }) :
     noop => noop

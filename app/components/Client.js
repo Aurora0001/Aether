@@ -196,7 +196,7 @@ class Client extends Component {
                   time: x.time,
                   colour: x.colour,
                   kind: x.kind,
-                  safe: x.safe
+                  useHtml: x.useHtml
                 };
               })
             }
@@ -225,6 +225,7 @@ class Client extends Component {
             searching={this.props.searching}
             searchText={this.props.searchText}
             searchCallback={this.props.setSearchText}
+            endSearchCallback={this.props.endSearch}
           />
         </div>
         <UserBar

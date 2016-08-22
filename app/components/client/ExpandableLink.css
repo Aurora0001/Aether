@@ -1,0 +1,13 @@
+i.drop_icon {
+  line-height: 1.125rem;
+  font-size: 0.8rem;
+}
+
+i.drop_icon:hover {
+  cursor: pointer;
+}
+
+.link_view {
+  width: 100%;
+  min-height: 30rem; 
+}

@@ -101,6 +101,7 @@ class ChatBox extends Component {
             <SearchBar
               searchText={this.props.searchText}
               searchCallback={this.props.searchCallback}
+              endSearchCallback={this.props.endSearchCallback}
             /> :
             <ChatBar
               dropProgress={this.props.dropProgress}
