@@ -6,6 +6,29 @@ import { NEW_PRIVMSG, NEW_ACTION, JOIN_CHANNEL, PART_CHANNEL, KICK_CHANNEL,
          RECEIVE_WHOIS, DISCONNECT_BEGIN, RECEIVE_MOTD
        } from '../actions/client';
 
+const channelModes = {
+  '+m': (channel, mode, argument) => `made ${channel} a moderated channel (+m)`,
+  '-m': (channel, mode, argument) => `made ${channel} a non-moderated channel (-m)`,
+  '+i': (channel, mode, argument) => `made ${channel} invite-only (+i)`,
+  '-i': (channel, mode, argument) => `removed invite-only status for ${channel} (-i)`,
+  '+s': (channel, mode, argument) => `made ${channel} secret (+s)`,
+  '-s': (channel, mode, argument) => `removed secret status for ${channel} (-s)`,
+  '+o': (channel, mode, argument) => `made ${argument} an operator (+o)`,
+  '-o': (channel, mode, argument) => `removed ${argument}'s operator status (-o)`,
+  '+v': (channel, mode, argument) => `gave ${argument} voice permissions (+v)`,
+  '-v': (channel, mode, argument) => `removed ${argument}'s voice permissions (-v)`,
+  '+h': (channel, mode, argument) => `made ${argument} a half-operator (+h)`,
+  '-h': (channel, mode, argument) => `removed ${argument}'s half-operator status (-h)`,
+  '+q': (channel, mode, argument) => `made ${argument} an owner (+q)`,
+  '-q': (channel, mode, argument) => `removed ${argument}'s owner status (-q)`,
+  '+a': (channel, mode, argument) => `made ${argument} an administrator (+a)`,
+  '-a': (channel, mode, argument) => `removed ${argument}'s administrator status (-a)`,
+  '+k': (channel, mode, argument) => `sets the channel password to ${argument} (+k)`,
+  '-k': (channel, mode, argument) => `removes the channel password from ${channel} (-k)`,
+  '+b': (channel, mode, argument) => `banned ${argument} (+b)`,
+  '-b': (channel, mode, argument) => `unbanned ${argument} (-b)`,
+};
+
 export function whoisData(state = {}, action) {
   switch (action.type) {
     case CONNECTED:
@@ -129,13 +152,23 @@ export function feeds(state = {}, action) {
       return appendToChannelId(newState, action.destChannel, action.from,
                                action.to, `CTCP (${action.ctcpType}) ${action.text}`, 'ctcp');
     case ADD_MODE:
+      if (channelModes[`+${action.mode}`]) {
+        return append_message(state, action.network_id, action.by,
+                              action.channel, channelModes[`+${action.mode}`](action.channel, action.mode, action.argument),
+                              'addmode');
+      }
       return append_message(state, action.network_id, action.by, action.channel,
                             `added mode +${action.mode} ${action.argument}`,
                             'addmode');
     case REMOVE_MODE:
-      return append_message(state, action.network_id, action.by, action.channel,
-                            `removed mode -${action.mode} ${action.argument}`,
+    if (channelModes[`-${action.mode}`]) {
+      return append_message(state, action.network_id, action.by,
+                            action.channel, channelModes[`-${action.mode}`](action.channel, action.mode, action.argument),
                             'removemode');
+    }
+    return append_message(state, action.network_id, action.by, action.channel,
+                          `removed mode -${action.mode} ${action.argument}`,
+                          'removemode');
     case USER_QUIT:
       return append_message(state, action.network_id, action.nick,
                             action.channel, `has quit (${action.reason})`,
