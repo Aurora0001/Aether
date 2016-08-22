@@ -1,0 +1,19 @@
+.username:hover + .tooltip {
+  display: flex ;
+  position: absolute;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 1rem;
+  top: -4.75rem;
+  border-radius: 0.2rem;
+  float: left;
+  white-space: nowrap;
+}
+
+.tooltip {
+  display: none;
+}
+
+.tooltip div {
+  position: relative;
+}

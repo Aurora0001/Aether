@@ -16,7 +16,8 @@ function mapStateToProps(state) {
     counter: state.channel_counter,
     dropProgress: state.dropProgress,
     searching: state.searching,
-    searchText: state.searchText
+    searchText: state.searchText,
+    whoisData: state.whoisData
   };
 }
 

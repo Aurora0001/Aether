@@ -42,6 +42,7 @@
 
 .message .username {
   font-weight: bold;
+  position: relative;
 }
 
 .message .username:after {

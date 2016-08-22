@@ -6,6 +6,25 @@ import { NEW_PRIVMSG, NEW_ACTION, JOIN_CHANNEL, PART_CHANNEL, KICK_CHANNEL,
          RECEIVE_WHOIS, DISCONNECT_BEGIN, RECEIVE_MOTD
        } from '../actions/client';
 
+export function whoisData(state = {}, action) {
+  switch (action.type) {
+    case CONNECTED:
+      const new_obj = Object.assign({}, state);
+      new_obj[action.network_id] = {};
+      return new_obj;
+    case DISCONNECT_BEGIN:
+      const disconnectObj = Object.assign({}, state);
+      delete disconnectObj[action.network_id];
+      return disconnectObj;
+    case RECEIVE_WHOIS:
+      const whoisObj = Object.assign({}, state);
+      whoisObj[action.network_id][action.info.nick] = action.info;
+      return whoisObj;
+    default:
+      return state;
+  }
+}
+
 export function clients(state = {}, action) {
   switch (action.type) {
     case CONNECTED:

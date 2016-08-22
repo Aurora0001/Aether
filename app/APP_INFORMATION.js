@@ -1,2 +1,2 @@
-export const VERSION = 'v0.9.0 "Iynx"';
+export const VERSION = 'v0.10.0 "Juturna"';
 export const NAME = 'Aether';

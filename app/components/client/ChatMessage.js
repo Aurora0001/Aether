@@ -3,6 +3,7 @@ import moment from 'moment';
 import Linkify from 'react-linkify';
 import styles from './ChatMessage.css';
 import ExpandableLink from './ExpandableLink.js';
+import UserInformation from './UserInformation.js';
 import { markup } from '../../store/markupMiddleware.js';
 
 class ChatMessage extends Component {
@@ -14,7 +15,7 @@ class ChatMessage extends Component {
   };
 
   render() {
-    const { text, user, time, kind, colour, useHtml } = this.props;
+    const { text, user, time, kind, colour, useHtml, whoisData } = this.props;
     return (
       <span className={`${styles.message} ${styles[kind]}`}>
         <span
@@ -27,7 +28,11 @@ class ChatMessage extends Component {
         </span>
         <abbr className={styles.time} title={time}>{moment(time).format('LT')}</abbr>
         <div className={styles.main}>
-          <span className={styles.username}>{user}</span>
+          <UserInformation
+            whoisData={whoisData}
+            username={user}
+            className={styles.username}
+          />
           {
             useHtml ? <span className={styles.content} dangerouslySetInnerHTML={{
               __html: text

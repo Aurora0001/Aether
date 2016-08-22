@@ -226,6 +226,11 @@ class Client extends Component {
             searchText={this.props.searchText}
             searchCallback={this.props.setSearchText}
             endSearchCallback={this.props.endSearch}
+            whoisData={
+              current_channel && channels[current_channel] ?
+              this.props.whoisData[channels[current_channel].network_id] :
+              {}
+            }
           />
         </div>
         <UserBar

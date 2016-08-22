@@ -76,16 +76,11 @@ class ChatBox extends Component {
         >
           {
             messages.map(item => {
-              if (this.props.searchText === '') {
+              if (this.props.searchText === '' || item.text.toLowerCase().indexOf(this.props.searchText) !== -1) {
                 return (
                   <ChatMessage
                     {...item}
-                  />
-                );
-              } else if (item.text.toLowerCase().indexOf(this.props.searchText) !== -1){
-                return (
-                  <ChatMessage
-                    {...item}
+                    whoisData={this.props.whoisData}
                   />
                 );
               }
