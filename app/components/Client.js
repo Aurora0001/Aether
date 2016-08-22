@@ -224,6 +224,7 @@ class Client extends Component {
             dropProgress={this.props.dropProgress}
             searching={this.props.searching}
             searchText={this.props.searchText}
+            beginSearch={this.props.beginSearch}
             searchCallback={this.props.setSearchText}
             endSearchCallback={this.props.endSearch}
             whoisData={

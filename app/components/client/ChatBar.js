@@ -46,6 +46,8 @@ class ChatBar extends Component {
       }
     } else if (event.keyCode === 13) {
       this.clickEvent();
+    } else if (event.keyCode === 70 && event.ctrlKey) {
+      this.props.beginSearch();
     }
   }
 

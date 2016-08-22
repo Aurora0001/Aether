@@ -102,6 +102,7 @@ class ChatBox extends Component {
               dropProgress={this.props.dropProgress}
               callback={callback}
               users={users}
+              beginSearch={this.props.beginSearch}
             />
         }
       </div>
