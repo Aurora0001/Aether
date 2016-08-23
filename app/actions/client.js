@@ -50,7 +50,8 @@ export function connect(host, port, ssl, _nick, ident, real, pass, sasl, invalid
       selfSigned: invalid,
       certExpired: invalid,
       channels: defaultChannels,
-      stripColors: false
+      stripColors: false,
+      encoding: null
     };
 
     if (pass) {
@@ -76,6 +77,7 @@ export function connect(host, port, ssl, _nick, ident, real, pass, sasl, invalid
     });
 
     client.addListener('message', (nick, to, text, message) => {
+      console.log(text);
       if (to === client.nick) {
         to = nick;
       }
