@@ -72,6 +72,10 @@ class ChatBar extends Component {
     });
   };
 
+  focus = () => {
+    this._input.focus();
+  };
+
   render() {
     return (
       <div className={styles.chat_bar}>
@@ -83,6 +87,7 @@ class ChatBar extends Component {
           value={this.state.text}
           disabled={this.props.dropProgress !== null}
           spellCheck="true"
+          ref={ref => this._input = ref}
         />
         <a className={styles.emoji_add} onClick={this.toggleEmoji}>
           <i className="material-icons">

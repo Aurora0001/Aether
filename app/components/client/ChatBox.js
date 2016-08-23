@@ -56,9 +56,16 @@ class ChatBox extends Component {
     }
   };
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     const box = document.getElementById('chatBox');
     box.scrollTop = box.scrollHeight;
+    if (this.props.searching !== prevProps.searching) {
+      if (this.props.searching) {
+        this._search.focus();
+      } else {
+        this._chat.focus();
+      }
+    }
   }
 
   render() {
@@ -97,12 +104,14 @@ class ChatBox extends Component {
               searchText={this.props.searchText}
               searchCallback={this.props.searchCallback}
               endSearchCallback={this.props.endSearchCallback}
+              ref={ref => this._search = ref}
             /> :
             <ChatBar
               dropProgress={this.props.dropProgress}
               callback={callback}
               users={users}
               beginSearch={this.props.beginSearch}
+              ref={ref => this._chat = ref}
             />
         }
       </div>

@@ -21,6 +21,10 @@ class SearchBar extends Component {
     }
   }
 
+  focus = () => {
+    this._input.focus();
+  }
+
   render() {
     return (
       <div className={styles.chat_bar}>
@@ -32,6 +36,7 @@ class SearchBar extends Component {
           onKeyDown={this.keyPress}
           value={this.props.searchText}
           className={styles.search_box}
+          ref={ref => this._input = ref}
         />
       </div>
     );
