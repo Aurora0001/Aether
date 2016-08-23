@@ -102,6 +102,9 @@ class Client extends Component {
       },
       DISCONNECT: (message, channel) => {
         this.props.disconnect(channel.network_id, message.slice(1).join(' '));
+      },
+      WHOIS: (message, channel) => {
+        this.props.sendWhois(message[1], channel.network_id);
       }
     };
 

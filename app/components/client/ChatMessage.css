@@ -62,7 +62,7 @@
 }
 
 
-.message.privmsg .content {
+.message.privmsg .content, .message.whois .content {
   display: block;
 }
 
@@ -70,6 +70,10 @@
 
 .action {
   font-weight: bold;
+}
+
+.whois .username:before {
+  content: "Whois for ";
 }
 
 .action .username:after, .quit .username:after, .join .username:after,

@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
 import * as storage from 'redux-storage';
-import { clients, feeds, users, channels, whoisData } from './client.js';
+import { clients, feeds, users, channels, whoisData, whoisRequested } from './client.js';
 import { current_channel, network_states, channel_counter, networks,
          highlightWords, pluginSettings, pluginList, dragDropHandlers,
          dropProgress, searching, searchText
@@ -24,7 +24,8 @@ const rootReducer = combineReducers({
   dropProgress,
   searching,
   searchText,
-  whoisData
+  whoisData,
+  whoisRequested
 });
 
 export default storage.reducer(rootReducer);

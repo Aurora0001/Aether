@@ -32,6 +32,7 @@ export const RECEIVE_CTCP = 'RECEIVE_CTCP';
 export const WILL_SEND_PRIVMSG = 'WILL_SEND_PRIVMSG';
 export const RECEIVE_WHOIS = 'RECEIVE_WHOIS';
 export const RECEIVE_MOTD = 'RECEIVE_MOTD';
+export const SEND_WHOIS = 'SEND_WHOIS';
 
 // If any of these modes are seen, we need to refresh the names list.
 const DISPLAY_MODES = ['q', 'a', 'o', 'h', 'v'];
@@ -48,7 +49,8 @@ export function connect(host, port, ssl, _nick, ident, real, pass, sasl, invalid
       sasl,
       selfSigned: invalid,
       certExpired: invalid,
-      channels: defaultChannels
+      channels: defaultChannels,
+      stripColors: false
     };
 
     if (pass) {
@@ -180,7 +182,8 @@ export function connect(host, port, ssl, _nick, ident, real, pass, sasl, invalid
     });
 
     client.addListener('whois', (info) => {
-      dispatch(receiveWhois(info, getState().current_channel || networkId, networkId));
+      const state = getState();
+      dispatch(receiveWhois(info, state.current_channel || networkId, networkId, state.whoisRequested[networkId][info.nick]));
     });
 
     client.conn.addListener('close', (err) => {
@@ -193,11 +196,25 @@ export function connect(host, port, ssl, _nick, ident, real, pass, sasl, invalid
   };
 }
 
+export function sendWhois(user, networkId) {
+  return (dispatch, getState) => {
+    const client = getState().clients[networkId];
+    if (client) {
+      client.whois(user, () => 0);
+      dispatch({
+        type: SEND_WHOIS,
+        user,
+        network_id: networkId
+      });
+    }
+  };
+}
+
 function receiveMotd(motd, networkId) {
   return {
-    type: RECEIVE_MOTD,
-    motd,
-    network_id: networkId
+      type: RECEIVE_MOTD,
+      motd,
+      network_id: networkId
   };
 }
 
@@ -317,12 +334,13 @@ export function remove_channel(channel, networkId) {
   };
 }
 
-function receiveWhois(info, destChannel, networkId) {
+function receiveWhois(info, destChannel, networkId, shouldNotify) {
   return {
     type: RECEIVE_WHOIS,
     info,
     destChannel,
-    network_id: networkId
+    network_id: networkId,
+    shouldNotify
   }
 }
 

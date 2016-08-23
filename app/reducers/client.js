@@ -3,7 +3,7 @@ import { NEW_PRIVMSG, NEW_ACTION, JOIN_CHANNEL, PART_CHANNEL, KICK_CHANNEL,
          NEW_NOTICE, ADD_MODE, REMOVE_MODE, USER_QUIT, CONNECTED, RECEIVE_NAMES,
          NICK_CHANGE, SET_TOPIC, USER_KILLED, DISCONNECTED, SERVER_ERROR,
          NEW_SELF_PRIVMSG, REMOVE_CHANNEL, JOIN_PRIVMSG, RECEIVE_CTCP,
-         RECEIVE_WHOIS, DISCONNECT_BEGIN, RECEIVE_MOTD
+         RECEIVE_WHOIS, DISCONNECT_BEGIN, RECEIVE_MOTD, SEND_WHOIS
        } from '../actions/client';
 
 const channelModes = {
@@ -28,6 +28,29 @@ const channelModes = {
   '+b': (channel, mode, argument) => `banned ${argument} (+b)`,
   '-b': (channel, mode, argument) => `unbanned ${argument} (-b)`,
 };
+
+export function whoisRequested(state = {}, action) {
+  switch (action.type) {
+    case CONNECTED:
+      const new_obj = Object.assign({}, state);
+      new_obj[action.network_id] = {};
+      return new_obj;
+    case DISCONNECT_BEGIN:
+      const disconnectObj = Object.assign({}, state);
+      delete disconnectObj[action.network_id];
+      return disconnectObj;
+    case SEND_WHOIS:
+      const sendObj = Object.assign({}, state);
+      sendObj[action.network_id][action.user] = true;
+      return sendObj;
+    case RECEIVE_WHOIS:
+      const whoisObj = Object.assign({}, state);
+      delete whoisObj[action.network_id][action.info.nick];
+      return whoisObj;
+    default:
+      return state;
+  }
+}
 
 export function whoisData(state = {}, action) {
   switch (action.type) {
@@ -186,6 +209,16 @@ export function feeds(state = {}, action) {
                             action.channel, `set the topic to ${action.topic}`,
                             'topic');
     case RECEIVE_WHOIS:
+      if (action.shouldNotify) {
+        let whoisObj = Object.assign({}, state);
+        whoisObj = appendToChannelId(whoisObj, action.destChannel, action.info.nick,
+          action.destChannel, `Hostmask: ${action.info.nick}!${action.info.user}@${action.info.host}
+          Connected to ${action.info.server} (${action.info.serverinfo})
+          Real Name: ${action.info.realname}${action.info.operator ? '\nOperator Status: ' + action.info.operator : ''}
+          Channels: ${action.info.channels.join(' ')}`,
+          'whois');
+        return whoisObj;
+      }
       return state;
     case DISCONNECTED:
       return append_message(state, action.network_id, action.nick, action.channel, `was disconnected from the server (${action.message})`, 'disconnect');
