@@ -244,6 +244,7 @@ class Client extends Component {
             joinPrivmsg(nick, networkId);
             change_current_channel(networkId, nick);
           }}
+          sendWhois={(nick) => this.props.sendWhois(nick, channels[current_channel].network_id)}
         />
       </div>
     );

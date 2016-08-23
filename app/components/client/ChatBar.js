@@ -53,7 +53,7 @@ class ChatBar extends Component {
 
   clickEvent = () => {
     if (this.state.text !== '') {
-      this.props.callback(this.state.text);
+      setTimeout(this.props.callback(this.state.text), 0);
       this.setState({
         text: ''
       });

@@ -45,6 +45,7 @@ class UserBar extends Component {
                       name={item.name}
                       role={item.role}
                       joinPrivmsg={() => this.props.joinChannel(item.name)}
+                      sendWhois={() => this.props.sendWhois(item.name)}
                     />
                   );
                 })

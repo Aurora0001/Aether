@@ -349,7 +349,7 @@ function appendToChannelId(state, channelId, nick, to, text, kind, useHtml) {
   let channelFeed = state[channelId] || [];
   const lastMessage = channelFeed[channelFeed.length - 1];
   if (lastMessage && lastMessage.nick === nick && lastMessage.kind === kind
-      && kind === 'privmsg') {
+      && (kind === 'privmsg' || kind === 'notice' || kind === 'motd')) {
     // "Squash" privmsgs together from the same author.
     lastMessage.text += `\n${text}`;
     lastMessage.time = new Date();

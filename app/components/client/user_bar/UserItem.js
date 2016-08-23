@@ -17,7 +17,7 @@ class UserItem extends Component {
   }
 
   render() {
-    const {name, role, joinPrivmsg} = this.props;
+    const { name, role, joinPrivmsg, sendWhois } = this.props;
     return (
       <div>
         <li className={styles.user}>
@@ -31,7 +31,7 @@ class UserItem extends Component {
           <a onClick={joinPrivmsg}>
             PM
           </a>
-          <a>
+          <a onClick={sendWhois}>
             Whois
           </a>
           <a>

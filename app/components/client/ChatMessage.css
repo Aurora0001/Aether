@@ -62,8 +62,13 @@
 }
 
 
-.message.privmsg .content, .message.whois .content {
+.message.privmsg .content, .message.whois .content, .message.motd .content {
   display: block;
+}
+
+.message.motd .content {
+  font-family: "Consolas", monospace;
+  white-space: pre;
 }
 
 /* For /me and channel/server-related messages */
