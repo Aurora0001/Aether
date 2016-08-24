@@ -4,12 +4,6 @@ import sidebar_styles from '../../Sidebar.css';
 import styles from './Page.css';
 
 class NetworkSettings extends Component {
-  static propTypes = {
-    networks: PropTypes.array.isRequired,
-    addNetwork: PropTypes.func.isRequired,
-    removeNetwork: PropTypes.func.isRequired
-  };
-
   render() {
     const { networks, addNetwork, removeNetwork } = this.props;
     return (

@@ -42,11 +42,11 @@ class NetworkTab extends Component {
         </a>
         {
           show ?
-            <a className={styles.network_icon} onClick={() => fold(networkId)}>
+            <a title="Hide Network" className={styles.network_icon} onClick={() => fold(networkId)}>
               <i className="material-icons md-18">keyboard_arrow_up</i>
             </a>
           :
-            <a className={styles.network_icon} onClick={() => expand(networkId)}>
+            <a title="Show Network" className={styles.network_icon} onClick={() => expand(networkId)}>
               <i className="material-icons md-18">keyboard_arrow_down</i>
             </a>
         }
