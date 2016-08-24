@@ -87,6 +87,7 @@ class ChatBox extends Component {
                 return (
                   <ChatMessage
                     {...item}
+                    key={item.id}
                     whoisData={this.props.whoisData}
                   />
                 );

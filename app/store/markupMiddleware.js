@@ -28,16 +28,19 @@ const boldify = (text) => {
   let content = '';
   let currentElement = ['span'];
   let items = [];
+  let i = 0;
   for (let character of text) {
     if (formatChars.hasOwnProperty(character)) {
-      items.push(React.createElement(
-        currentElement[currentElement.length - 1],
-        {},
-        emoji(content, (code, string, offset) => {
-          return <img className="emoji" src={twemojiImages('./' + code + '.png')} alt={string} key={offset} />;
-        })
-      ));
-      content = '';
+      if (content !== '') {
+        items.push(React.createElement(
+          currentElement[currentElement.length - 1],
+          {key: i++},
+          emoji(content, (code, string, offset) => {
+            return <img className="emoji" src={twemojiImages('./' + code + '.png')} alt={string} key={offset} />;
+          })
+        ));
+        content = '';
+      }
       if (currentElement[currentElement.length - 1] === formatChars[character]) {
         currentElement.pop();
       } else {
@@ -50,8 +53,10 @@ const boldify = (text) => {
 
   items.push(React.createElement(
     currentElement[currentElement.length - 1],
-    {},
-    content
+    {key: i++},
+    emoji(content, (code, string, offset) => {
+      return <img className="emoji" src={twemojiImages('./' + code + '.png')} alt={string} key={offset} />;
+    })
   ));
 
   return items;

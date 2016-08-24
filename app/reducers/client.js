@@ -29,6 +29,8 @@ const channelModes = {
   '-b': (channel, mode, argument) => `unbanned ${argument} (-b)`,
 };
 
+let messageId = 0;
+
 export function whoisRequested(state = {}, action) {
   switch (action.type) {
     case CONNECTED:
@@ -380,7 +382,8 @@ function appendToChannelId(state, channelId, nick, to, text, kind, useHtml) {
       kind,
       colour: `hsl(${hue}, 50%, 58%)`,
       useHtml,
-      time: new Date()
+      time: new Date(),
+      id: messageId++
     };
 
     if (channelMessages.indexOf(kind) !== -1) {

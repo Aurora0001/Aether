@@ -12,7 +12,7 @@ class ChatMessage extends Component {
     user: PropTypes.string.isRequired,
     kind: PropTypes.string.isRequired,
     colour: PropTypes.string.isRequired
-  };
+  }; 
 
   render() {
     const { text, user, time, kind, colour, useHtml, whoisData } = this.props;

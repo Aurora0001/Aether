@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { pluginMiddleware } from '../../store/pluginMiddleware.js';
 import styles from './ExpandableLink.css';
 
 class ExpandableLink extends Component {
@@ -11,19 +12,30 @@ class ExpandableLink extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      expanded: false
+      expanded: false,
+      href: props.href
     };
   }
 
   toggleExpanded = (event) => {
+    let href = this.state.href;
+    if (!this.state.expanded) {
+      href = pluginMiddleware(null)((action) => action)({
+        type: 'WILL_OPEN_LINK',
+        href
+      }).href;
+    }
+
+
     this.setState({
-      expanded: !this.state.expanded
+      expanded: !this.state.expanded,
+      href
     });
   };
 
   render() {
-    const { href, key, children } = this.props;
-    const { expanded } = this.state;
+    const { key, children } = this.props;
+    const { expanded, href } = this.state;
     return (
       <span key={key}>
         <a href={href} target="_blank">{children}</a>

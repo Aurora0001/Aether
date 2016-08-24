@@ -199,6 +199,7 @@ class Client extends Component {
                   time: x.time,
                   colour: x.colour,
                   kind: x.kind,
+                  id: x.id,
                   useHtml: x.useHtml
                 };
               })

@@ -10,10 +10,10 @@
 
 
 .chat_bar input {
-  padding-right: 1rem;
-  width: calc(100% - 7rem);
+  width: calc(100% - 8.4rem);
   margin: 0;
   padding: 0.8rem;
+  padding-right: 1.5rem;
   border: 0;
 }
 
