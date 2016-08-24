@@ -54,3 +54,131 @@ img.emoji {
    margin: 0 .05em 0 .1em;
    vertical-align: -0.1em;
 }
+
+.bg-0 {
+  background-color: #fff;
+}
+
+.bg-1 {
+  background-color: #000;
+}
+
+.bg-2 {
+  background-color: rgba(0, 0, 127, 0.75);
+}
+
+.bg-3 {
+  background-color: rgba(0, 147, 0, 0.75);
+}
+
+.bg-4 {
+  background-color: rgba(255, 0, 0, 0.75);
+}
+
+.bg-5 {
+  background-color: rgba(127, 0, 0, 0.75);
+}
+
+.bg-6 {
+  background-color: rgba(156, 0, 156, 0.75);
+}
+
+.bg-7 {
+  background-color: rgba(252, 127, 0, 0.75);
+}
+
+.bg-8 {
+  background-color: rgba(255, 255, 0, 0.75);
+}
+
+.bg-9 {
+  background-color: rgba(0, 252, 0, 0.75);
+}
+
+.bg-10 {
+  background-color: rgba(0, 147, 147, 0.75);
+}
+
+.bg-11 {
+  background-color: rgba(0, 255, 255, 0.75);
+}
+
+.bg-12 {
+  background-color: rgba(0, 0, 252, 0.75);
+}
+
+.bg-13 {
+  background-color: rgba(255, 0, 255, 0.75);
+}
+
+.bg-14 {
+  background-color: rgba(127, 127, 127, 0.75);
+}
+
+.bg-15 {
+  background-color: rgba(210, 210, 210, 0.75);
+}
+
+.fg-0 {
+  color: #fff;
+}
+
+.fg-1 {
+  color: #000;
+}
+
+.fg-2 {
+  color: rgba(0, 0, 127, 0.75);
+}
+
+.fg-3 {
+  color: rgba(0, 147, 0, 0.75);
+}
+
+.fg-4 {
+  color: rgba(255, 0, 0, 0.75);
+}
+
+.fg-5 {
+  color: rgba(127, 0, 0, 0.75);
+}
+
+.fg-6 {
+  color: rgba(156, 0, 156, 0.75);
+}
+
+.fg-7 {
+  color: rgba(252, 127, 0, 0.75);
+}
+
+.fg-8 {
+  color: rgba(255, 255, 0, 0.75);
+}
+
+.fg-9 {
+  color: rgba(0, 252, 0, 0.75);
+}
+
+.fg-10 {
+  color: rgba(0, 147, 147, 0.75);
+}
+
+.fg-11 {
+  color: rgba(0, 255, 255, 0.75);
+}
+
+.fg-12 {
+  color: rgba(0, 0, 252, 0.75);
+}
+
+.fg-13 {
+  color: rgba(255, 0, 255, 0.75);
+}
+
+.fg-14 {
+  color: rgba(127, 127, 127, 0.75);
+}
+
+.fg-15 {
+  color: rgba(210, 210, 210, 0.75);
+}

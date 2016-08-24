@@ -27,14 +27,17 @@ const formatChars = {
 const boldify = (text) => {
   let content = '';
   let currentElement = ['span'];
+  let currentProps = [];
   let items = [];
   let i = 0;
-  for (let character of text) {
+  while (text) {
+    let character = text[0];
+    text = text.slice(1);
     if (formatChars.hasOwnProperty(character)) {
       if (content !== '') {
         items.push(React.createElement(
           currentElement[currentElement.length - 1],
-          {key: i++},
+          {...currentProps[currentProps.length - 1], key: i++},
           emoji(content, (code, string, offset) => {
             return <img className="emoji" src={twemojiImages('./' + code + '.png')} alt={string} key={offset} />;
           })
@@ -43,8 +46,29 @@ const boldify = (text) => {
       }
       if (currentElement[currentElement.length - 1] === formatChars[character]) {
         currentElement.pop();
+        currentProps.pop();
       } else {
         currentElement.push(formatChars[character]);
+        currentProps.push({});
+      }
+    } else if (character === '\x03') {
+      const matcher = /^([0-9]{1,2})(,[0-9]{1,2})?/;
+      let res = matcher.exec(text);
+      if (res) {
+        if (content !== '') {
+          items.push(React.createElement(
+            currentElement[currentElement.length - 1],
+            {...currentProps[currentProps.length - 1], key: i++},
+            emoji(content, (code, string, offset) => {
+              return <img className="emoji" src={twemojiImages('./' + code + '.png')} alt={string} key={offset} />;
+            })
+          ));
+          content = '';
+        }
+
+        text = text.replace(matcher, '');
+        currentElement.push('span');
+        currentProps.push({className: `bg-${res[2]?parseInt(res[2].slice(1), 10):'none'} fg-${parseInt(res[1], 10)}`});
       }
     } else {
       content += character;
@@ -53,7 +77,7 @@ const boldify = (text) => {
 
   items.push(React.createElement(
     currentElement[currentElement.length - 1],
-    {key: i++},
+    {...currentProps[currentProps.length - 1], key: i++},
     emoji(content, (code, string, offset) => {
       return <img className="emoji" src={twemojiImages('./' + code + '.png')} alt={string} key={offset} />;
     })
