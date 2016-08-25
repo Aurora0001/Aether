@@ -38,7 +38,7 @@ class ExpandableLink extends Component {
     const { expanded, href } = this.state;
     return (
       <span key={key}>
-        <a href={href} target="_blank">{children}</a>
+        <a href={href} target="_blank" rel="noopener noreferrer">{children}</a>
         <i
           className={`material-icons ${styles.drop_icon}`}
           onClick={this.toggleExpanded}
