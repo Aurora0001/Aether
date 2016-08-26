@@ -14,6 +14,10 @@ const YouTubePlugin = function(registerForAction, registerForMime, store, action
     twitter_status: {
       matcher: /(https?:\/\/twitter.com\/[A-Za-z0-9]+\/status\/[0-9]+)/g,
       onMatch: (action, id) => action.href = `https://twitframe.com/show?url=${id[0]}`
+    },
+    gist: {
+      matcher: /(https?:\/\/gist.github.com\/[A-Za-z0-9]+\/[a-z0-9]+)/g,
+      onMatch: (action, id) => action.href = `data:text/html,<script src="${id[0]}.js"></script>`
     }
   }
   registerForAction('WILL_OPEN_LINK', (action) => {
